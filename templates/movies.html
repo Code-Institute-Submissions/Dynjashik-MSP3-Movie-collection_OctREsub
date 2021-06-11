@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies Collection</title>
-</head>
-<body>
-    Hello!
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>I'm extending the base template!</h2>
+
     {% for movie in movies %}
         {{ movie.movie_name }}<br>
         {{ movie.category_name }}<br>
@@ -16,5 +12,4 @@
         {{ movie.movie_description }}<br>
     {% endfor %}
 
-</body>
-</html>
+{% endblock %}
