@@ -22,9 +22,8 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a href="{{ url_for('home_page') }}">Home</a></li>
 					<li><a href="{{ url_for('movie_page') }}">Movies</a></li>
-					<li><a href="#">Sign In</a></li>
-					<li><a href="#">Sign Up</a></li>
-					<li><a href="#">Register</a></li>
+					<li><a href="{{ url_for('sign') }}">Sign In</a></li>
+					<li><a href="{{ url_for('sign') }}">Sign Up</a></li>
 					<li><a href="#">Add your movie</a></li>
 				</ul>
 			</div>
@@ -35,8 +34,7 @@
             <li><h4 class="light-blue-text text-darken 4">Movies based on books</h4></li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
-            <li><a href="#">Sign In/Sign Up</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="{{ url_for('sign') }}">Sign In/Sign Up</a></li>
             <li><a href="#">Add your movie</a></li>
 		</ul>
 	</header>
