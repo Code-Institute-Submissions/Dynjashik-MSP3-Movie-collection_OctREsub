@@ -32,6 +32,24 @@ def movie_page():
 
 @app.route("/signing", methods=["GET", "POST"])
 def sign():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            flash("Username already exists")
+            return redirect(url_for("sign"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+
+        # add the new user into collection users
+        session["user"] = request.form.get("username").lower()
+        flash("Signing Up Successful!")
     return render_template("register.html")
 
 
