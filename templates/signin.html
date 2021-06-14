@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="center-align">Sign Up</h3>
+    <h3 class="center-align">Sign In</h3>
 
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('sign') }}">
         <!-- username -->
             <div class="row">
                 <div class="input-field col s12"> 
-                    <i class="fas fa-user-plus prefix"></i>
+                    <i class="fas fa-user-check prefix"></i>
                     <input id="username" name="username" type="text"bminlength="3"
                         maxlength="10" pattern="^[a-zA-Z0-9]{3,10}$" class="validate" required>
                     <label for="username">Username</label>
@@ -23,21 +23,22 @@
             <label for="password">Password</label>
             </div>
         </div>
-         <!-- email -->
-        <div class="row">
-            <div class="input-field col s12">
-                 <i class="fas fa-user-cog prefix"></i>
-            <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="validate" required>
-            <label for="email">Email</label>
-            </div>
-        </div>
-        <!-- sign up -->
+        <!-- sign in -->
                 <div class="row">
                     <button type="submit" class="col s4 center-align waves-effect waves-light btn-large">
-                       Sign Up <i class="fas fa-sign-in-alt"></i>
+                       Sign In <i class="fas fa-sign-in-alt"></i>
                     </button>
                 </div>
         </form>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <p class="center-align">
+                New Here?
+                <a href="{{ url_for('sign') }}">Sign Up Account</a>
+            </p>
+        </div>
     </div>
 
 {% endblock %}

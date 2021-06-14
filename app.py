@@ -50,7 +50,33 @@ def sign():
         # add the new user into collection users
         session["user"] = request.form.get("username").lower()
         flash("Signing Up Successful!")
-    return render_template("register.html")
+    return render_template("signup.html")
+
+
+@app.route("/signin", methods=["GET", "POST"])
+def sign_in():
+    if request.method == "POST":
+        # check if username exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                existing_user["password"], request.form.get("password")):
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome, {}".format(request.form.get("username")))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("sign_in"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("sign_in"))
+
+    return render_template("signin.html")
 
 
 if __name__ == "__main__":
