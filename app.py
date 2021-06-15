@@ -31,7 +31,7 @@ def movie_page():
 
 
 @app.route("/signing", methods=["GET", "POST"])
-def sign():
+def sign_up():
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -77,6 +77,14 @@ def sign_in():
             return redirect(url_for("sign_in"))
 
     return render_template("signin.html")
+
+
+@app.route("/logout")
+def log_out():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("sign_in"))
 
 
 if __name__ == "__main__":
