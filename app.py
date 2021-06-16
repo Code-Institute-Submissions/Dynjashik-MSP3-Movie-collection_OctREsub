@@ -25,7 +25,7 @@ def home_page():
 
 @app.route("/movies")
 def movie_page():
-    movies = mongo.db.movies.find()
+    movies = list(mongo.db.movies.find())
     print("wow")
     return render_template("movies.html", movies=movies)
 

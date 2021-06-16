@@ -11,18 +11,23 @@
     {% endfor %}
 
     <ul class="collapsible">
+        {% for movie in movies %}
         <li>
-            <div class="collapsible-header">First</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            <div class="collapsible-header">
+                {{ movie.movie_name }}
+                <i class="far fa-arrow-alt-circle-down tooltipped" data-position="bottom" data-tooltip="See more"></i>
+            </div>
+            <div class="collapsible-body">
+                <span>
+                <strong>Category: </strong>{{ movie.category_name }}<br>
+                <strong>Year: </strong>{{ movie.year }}<br>
+                <strong>Duration: </strong>{{ movie.movie_duration }}<br>
+                <strong>Book link: </strong>{{ movie.book_link }}<br>
+                <strong>Description: </strong>{{ movie.movie_description }}<br>
+                </span>
+            </div>
         </li>
-        <li>
-            <div class="collapsible-header">Second</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="fas fa-caret-down"></i>Third</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
+        {% endfor %}
   </ul>
 
 {% endblock %}
