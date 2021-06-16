@@ -50,6 +50,7 @@ def sign_up():
         # add the new user into collection users
         session["user"] = request.form.get("username").lower()
         flash("Signing Up Successful!")
+
     return render_template("signup.html")
 
 
@@ -66,6 +67,7 @@ def sign_in():
                 existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}".format(request.form.get("username")))
+                    return render_template("home.html")
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")

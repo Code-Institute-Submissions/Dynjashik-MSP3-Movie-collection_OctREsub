@@ -37,8 +37,12 @@
             <li><h4 class="light-blue-text text-darken 4">Movies based on books</h4></li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
-            <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
+        {% if session.user %}
             <li><a href="#">Add your movie</a></li>
+            <li><a href="{{ url_for('log_out') }}">Log Out</a></li>
+        {% else %}
+            <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
+        {% endif %}
 		</ul>
 	</header>
 
