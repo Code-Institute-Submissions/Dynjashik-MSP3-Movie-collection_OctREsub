@@ -30,7 +30,7 @@ def movie_page():
     return render_template("movies.html", movies=movies)
 
 
-@app.route("/signing", methods=["GET", "POST"])
+@app.route("/signup", methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
         # check if username already exists in db
@@ -39,7 +39,7 @@ def sign_up():
 
         if existing_user:
             flash("Username already exists")
-            return redirect(url_for("sign"))
+            return redirect(url_for("sign_in"))
 
         register = {
             "username": request.form.get("username").lower(),
@@ -49,7 +49,7 @@ def sign_up():
 
         # add the new user into collection users
         session["user"] = request.form.get("username").lower()
-        flash("Signing Up Successful!")
+        flash("Sign Up Successful!")
 
     return render_template("signup.html")
 
@@ -60,14 +60,14 @@ def sign_in():
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
-
+        print (existing_user)
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
                 existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}".format(request.form.get("username")))
-                    return render_template("home.html")
+                    return redirect(url_for("home_page"))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
