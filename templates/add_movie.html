@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="center-align">Add Movie</h3>
+
+    <div class="row card-panel">
+        <form class="col s12" method="POST" action="">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix"></i>
+                    <input id="movie_name" name="movie_name" minlength="4" maxlength="60"
+                        type="text" class="validate" required>
+                    <label for="movie_name">Movie Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-calendar-alt prefix"></i>
+                    <input id="year" name="year" type="text" class="datepicker validate" required>
+                    <label for="year">Year</label>
+                </div>    
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix"></i>
+                    <textarea id="movie_description" name="movie_description" minlength="10"
+                        maxlength="200" class="materialize-textarea validate" required></textarea>
+                    <label for="movie_description">Movie Description</label>
+                </div>
+            
+        </form>
+    </div>
+
+{% endblock %}

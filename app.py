@@ -89,6 +89,11 @@ def log_out():
     return redirect(url_for("sign_in"))
 
 
+@app.route("/add_movie")
+def add_movie():
+    return render_template("add_movie.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
