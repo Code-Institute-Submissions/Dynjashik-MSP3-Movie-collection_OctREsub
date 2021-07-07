@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="center-align">Movies</h3>
+    <h3 class="center-align">All Movies</h3>
 
     <ul class="collapsible">
         {% for movie in movies %}
@@ -17,6 +17,7 @@
                 <strong>Duration: </strong>{{ movie.movie_duration }}<br>
                 <strong>Book link: </strong>{{ movie.book_link }}<br>
                 <strong>Description: </strong>{{ movie.movie_description }}<br>
+                <p><em>by: {{ movie.created_by }}</em></p>
                 </span>
             </div>
         </li>
