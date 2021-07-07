@@ -24,6 +24,9 @@
                         <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
                 {% if session.user %}
                         <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
+                        {% if session.user|lower == "admin"|lower %}
+                            <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+                        {% endif %}
                         <li><a href="{{ url_for('log_out') }}">Log Out</a></li>
                 {% else %}
                         <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
@@ -39,6 +42,9 @@
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
         {% if session.user %}
             <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
+            {% if session.user|lower == "admin"|lower %}
+                <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+            {% endif %}
             <li><a href="{{ url_for('log_out') }}">Log Out</a></li>
         {% else %}
             <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
