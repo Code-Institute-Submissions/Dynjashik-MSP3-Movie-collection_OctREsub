@@ -91,7 +91,8 @@ def log_out():
 
 @app.route("/add_movie")
 def add_movie():
-    return render_template("add_movie.html")
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("add_movie.html", categories=categories)
 
 
 if __name__ == "__main__":
