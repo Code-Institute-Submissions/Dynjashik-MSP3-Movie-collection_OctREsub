@@ -7,8 +7,9 @@
         {% for movie in movies %}
         <li>
             <div class="collapsible-header">
+                <i class="fas fa-arrow-down tooltipped" data-position="bottom" data-tooltip="See more"></i>
                 {{ movie.movie_name }}
-                <i class="far fa-arrow-alt-circle-down tooltipped" data-position="bottom" data-tooltip="See more"></i>
+                <a href="" class="btn-small">Edit</a>
             </div>
             <div class="collapsible-body">
                 <span>
