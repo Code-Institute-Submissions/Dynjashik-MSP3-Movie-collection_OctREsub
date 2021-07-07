@@ -9,7 +9,7 @@
             <div class="collapsible-header">
                 <i class="fas fa-arrow-down tooltipped" data-position="bottom" data-tooltip="See more"></i>
                 {{ movie.movie_name }}
-                <a href="" class="btn-small">Edit</a>
+                <a href="{{ url_for('edit_movie', movie_id=movie._id) }}" class="btn-small">Edit</a>
             </div>
             <div class="collapsible-body">
                 <span>
