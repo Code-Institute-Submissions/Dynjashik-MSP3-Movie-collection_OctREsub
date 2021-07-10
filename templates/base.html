@@ -17,27 +17,32 @@
         <!-- Navbar -->
         <nav class="nav-extended text-shadow light-blue darken-1">
 			<div class="nav-wrapper">
-				<a href="{{ url_for('home_page') }}" class="brand-logo">Movies based on books</a>
+                <ul class=" left hide-on-med-and-down">
+                    <li><a href="{{ url_for('home_page') }}">Home</a></li>
+                    <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
+                    {% if session.user %}
+                    <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
+                    {% if session.user|lower == "admin"|lower %}
+                    <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('log_out') }}">Log out</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
+                    {% endif %}
+                </ul>
+				<a href="{{ url_for('home_page') }}" class="center brand-logo">
+                    <img src="../static/images/logo-icon.png" alt="Website logo">
+                </a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="{{ url_for('home_page') }}">Home</a></li>
-                        <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
                 {% if session.user %}
-                        <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
-                        {% if session.user|lower == "admin"|lower %}
-                            <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
-                        {% endif %}
-                        <li><a href="{{ url_for('log_out') }}">Log Out</a></li>
-                {% else %}
-                        <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
+                <span class="username">{{session.user}}</span>
                 {% endif %}
-                    </ul>
 			</div>
 		</nav>
 
         <!-- mobile sidenav -->
 		<ul class="sidenav" id="mobile-demo">
-            <li><h4 class="light-blue-text text-darken 4">Movies based on books</h4></li>
+            <li><h4 class="light-blue-text text-darken 4">Movies by books</h4></li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
         {% if session.user %}
@@ -45,7 +50,7 @@
             {% if session.user|lower == "admin"|lower %}
                 <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
             {% endif %}
-            <li><a href="{{ url_for('log_out') }}">Log Out</a></li>
+            <li><a href="{{ url_for('log_out') }}">Log out</a></li>
         {% else %}
             <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
         {% endif %}
