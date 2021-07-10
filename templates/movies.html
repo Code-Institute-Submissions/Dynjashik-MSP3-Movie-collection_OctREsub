@@ -3,6 +3,24 @@
 
     <h3 class="center-align">All Movies</h3>
 
+    <!--Search Box-->
+    <div class="row card-panel">
+        <div class="col-4">
+            <form class="search-input" action="{{ url_for('search') }}" method="post">
+                <input type="text" placeholder="Search Movie..." name="query" id="query">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    {% if movies|length > 0 %}
+    <div class="category-menu">
+        <a class="waves-effect waves-light btn">All movies</a>
+        
+        {% for category in categories %} 
+            <a class="waves-effect waves-light btn">{{ category.category_name }} </a>
+        {% endfor %}
+    </div>
     <ul class="collapsible">
         {% for movie in movies %}
         <li>
@@ -27,5 +45,8 @@
         </li>
         {% endfor %}
   </ul>
+    {% else %}
+        <h3 class="red-text text-darken-4 center-align">No Results Found</h3>
+    {% endif %}
 
 {% endblock %}

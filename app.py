@@ -26,30 +26,38 @@ def home_page():
 @app.route("/movies")
 def movie_page():
     movies = list(mongo.db.movies.find())
-    print("wow")
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("movies.html", movies=movies, categories=categories)
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    movies = list(mongo.db.movies.find({"$text": {"$search": query}}))
     return render_template("movies.html", movies=movies)
 
 
 @app.route("/signup", methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
+        username_input = request.form.get("username")
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+            {"username": username_input.lower()})
 
         if existing_user:
-            flash("Username already exists")
-            return redirect(url_for("sign_in"))
+            flash("Username " + existing_user["username"] + " already exists")
+            return redirect(url_for("sign_up"))
 
         register = {
-            "username": request.form.get("username").lower(),
+            "username": username_input.lower(),
             "password": generate_password_hash(request.form.get("password"))
         }
         mongo.db.users.insert_one(register)
 
-        # add the new user into collection users
-        session["user"] = request.form.get("username").lower()
+        session['registered_user'] = username_input
         flash("Sign Up Successful!")
+        return redirect(url_for("sign_in"))
 
     return render_template("signup.html")
 
@@ -60,13 +68,12 @@ def sign_in():
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
-        print (existing_user)
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
                 existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(request.form.get("username")))
+                    flash("Welcome, {}!".format(request.form.get("username")))
                     return redirect(url_for("home_page"))
             else:
                 # invalid password match
@@ -99,10 +106,11 @@ def add_movie():
             "movie_duration": request.form.get("movie_duration"),
             "movie_description": request.form.get("movie_description"),
             "book_link": request.form.get("book_link"),
+            "movie_image": request.form.get("movie_image"),
             "created_by": session["user"]
         }
         mongo.db.movies.insert_one(movie)
-        flash("Movie is Successfully Added")
+        flash("Movie is successfully added!")
         return redirect(url_for("movie_page"))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
@@ -119,6 +127,7 @@ def edit_movie(movie_id):
             "movie_duration": request.form.get("movie_duration"),
             "movie_description": request.form.get("movie_description"),
             "book_link": request.form.get("book_link"),
+            "movie_image": request.form.get("movie_image"),
             "created_by": session["user"]
         }
         mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit)
