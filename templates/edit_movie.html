@@ -5,7 +5,7 @@
 
     <div class="row card-panel">
         <form class="col s12" method="POST" action="{{ url_for('edit_movie', movie_id=movie._id) }}">
-        <!-- movie name -->
+            <!-- movie name -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix"></i>
@@ -14,7 +14,7 @@
                     <label for="movie_name">Movie Name</label>
                 </div>
             </div>
-        <!-- category selection -->
+            <!-- category selection -->
             <div class="row">
 				<div class="input-field col s12">
                     <i class="fas fa-folder-open prefix"></i>
@@ -31,40 +31,41 @@
 					<label for="category_name">Movie Category</label>
 				</div>
 			</div>
-        <!-- year picker  Доделать!!!!!!--> 
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-calendar-alt prefix"></i>
-                    <input id="year" name="year" type="text" 
-                        value="{{ movie.year }}" class="datepicker validate" required>
-                    <label for="year">Year</label>
-                </div>
-        <!-- movie duration --> 
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-clock prefix"></i>
-                    <input id="movie_duration" name="movie_duration" type="text" value="{{ movie.movie_duration }}" class="validate" required>
-                    <label for="movie_duration">Movie duration</label>
-                </div>
-            </div>
-        <!-- movie description -->    
+            <!-- movie description -->    
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix"></i>
                     <textarea id="movie_description" name="movie_description" minlength="10"
-                        maxlength="200" class="materialize-textarea validate" required>
+                        class="materialize-textarea validate" required>
                         {{- movie.movie_description -}}
                     </textarea>
                     <label for="movie_description">Movie Description</label>
                 </div>
-        <!-- book link -->
+            </div>            
+            <!-- year --> 
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-calendar-alt prefix"></i>
+                    <input class="datepicker validate" value="{{ movie.year }}" type="number" id="year" name="year" min="1900" max="2100" required>
+                    <label for="year">Year</label>
+                </div>
+            </div>
+            <!-- movie duration -->    
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-clock prefix"></i>
+                    <input id="movie_duration" name="movie_duration" type="number" min="1" value="{{ movie.movie_duration }}" class="validate" required>
+                    <label for="movie_duration">Duration</label>
+                </div>
+            </div>  
+            <!-- book store url link -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-book prefix"></i>
                     <input id="book_link" name="book_link" type="text" value="{{ movie.book_link }}" class="validate" required>
-                    <label for="book_link">Book link</label>
+                    <label for="book_link">Book store URL</label>
                 </div>
-            </div>    
+            </div>
 
          <!-- submit button -->
             <div class="row">
@@ -78,7 +79,6 @@
                     </button>
                 </div>
             </div>  
-
         </form>
     </div>
 
