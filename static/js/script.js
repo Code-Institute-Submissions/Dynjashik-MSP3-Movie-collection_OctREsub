@@ -32,3 +32,14 @@ validateMaterializeSelect();
         });
     }
 });
+
+function validatePassword(){
+    var password = document.getElementById("password"),
+      password2 = document.getElementById("password2");
+ 
+    if(password.value != password2.value) {
+      password2.setCustomValidity("Passwords don't match");
+    } else {
+      password2.setCustomValidity('');
+  }
+}
