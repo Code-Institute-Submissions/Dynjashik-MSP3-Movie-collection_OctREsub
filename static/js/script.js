@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $('.sidenav').sidenav({edge: "right"});
+    $(".button-collapse").sideNav({edge: "right"});
     $('.collapsible').collapsible();
     $('.tooltipped').tooltip();
-    $('select').formSelect();
+    $('select').material_select();
 
 validateMaterializeSelect();
     function validateMaterializeSelect() {
