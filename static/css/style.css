@@ -20,5 +20,33 @@ body {
 }
 
 .search-input {
-    display: inline-block;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+#query {
+    width: 50%;
+    position: relative;
+    margin: 0;
+}
+
+.search-btns * {
+    height: 100%;
+}
+
+.search-btns > button > i {
+    display: flex;
+    align-items: center;
+}
+
+.search-btns > a {
+    display: inline-flex;
+    align-items: center;
 }

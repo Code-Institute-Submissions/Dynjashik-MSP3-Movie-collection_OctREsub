@@ -3,22 +3,15 @@
 
     <h3 class="center-align">All Movies</h3>
 
+
     <!--Search Box-->
-    <div class="row">
-        <div class="col-4">
-            <form class="search-input" action="{{ url_for('search') }}" method="POST">
-                <div class="row valign-wrapper">
-                    <div class="input-field col">
-                        <input type="search" placeholder="Search Movie..." name="query" id="query">
-                    </div>
-                </div>
-                <div class="search-btns">
-                    <button type="submit" class="waves-effect waves-light btn"><i class="fas fa-search prefix"></i></button>
-                    <a href="{{ url_for('movie_page') }}" class="btn cb-btn--back" >Back to All Movies<i class="fas fa-undo"></i></a>
-                </div>
-            </form>
+    <form class="search-input" action="{{ url_for('search') }}" method="POST">
+        <input type="search" placeholder="Search Movie..." name="query" id="query">
+        <div class="search-btns">
+            <button type="submit" class="waves-effect waves-light btn"><i class="fas fa-search"></i></button>
+            <a href="{{ url_for('movie_page') }}" class="btn cb-btn--back" >Back to all movies</a>
         </div>
-    </div>
+    </form>
 
     {% if movies|length > 0 %}
     <div class="category-menu">
