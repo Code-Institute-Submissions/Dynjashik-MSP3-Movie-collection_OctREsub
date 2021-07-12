@@ -34,7 +34,8 @@ def movie_page():
 def search():
     query = request.form.get("query")
     movies = list(mongo.db.movies.find({"$text": {"$search": query}}))
-    return render_template("movies.html", movies=movies)
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("movies.html", movies=movies, categories=categories)
 
 
 @app.route("/signup", methods=["GET", "POST"])
