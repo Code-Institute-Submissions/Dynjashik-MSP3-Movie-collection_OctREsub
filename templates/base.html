@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
         integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}">
     {% block styles %}
     {% endblock %}
     <title>Movie collection</title>
@@ -33,7 +34,7 @@
 				<a href="{{ url_for('home_page') }}" class="center brand-logo">
                     <img src="../static/images/logo-icon.png" alt="Website logo">
                 </a>
-				<a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 {% if session.user %}
                 <span class="username">{{session.user}}</span>
                 {% endif %}
@@ -41,7 +42,7 @@
 		</nav>
 
         <!-- mobile sidenav -->
-        <ul id="slide-out" class="side-nav">
+        <ul class="sidenav" id="mobile-demo">
             <li><h4 class="light-blue-text text-darken 4">Movies by books</h4></li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
@@ -77,7 +78,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {% block scripts %}
     {% endblock %}

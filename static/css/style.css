@@ -19,6 +19,8 @@ body {
     width: 4.4rem;
 }
 
+/*Search box*/
+
 .search-input {
     display: flex;
     -ms-flex-wrap: wrap;
@@ -50,3 +52,5 @@ body {
     display: inline-flex;
     align-items: center;
 }
+
+/*Movie cards*/

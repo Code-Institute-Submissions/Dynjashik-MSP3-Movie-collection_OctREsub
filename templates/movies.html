@@ -23,10 +23,10 @@
 
     {% if movies|length > 0 %}
     <!--Movie cards-->
-    <div>
-        <ul>
+    <div class="row">
+        <ul class="movie-cards">
             {% for movie in movies %}
-            <li class="card">
+            <li class="col s12 m4 card small">
                 <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="{{ url_for('static', filename='images/movie_img.png') }}" data-tooltip="See more">
                 </div>
@@ -39,11 +39,11 @@
                 </div>
                 <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>
-                    {{ movie.movie_name }}
+                    {{ movie.movie_name }} <br>
                     <strong>Category: </strong>{{ movie.category_name }}<br>
                     <strong>Year: </strong>{{ movie.year }}<br>
-                    <strong>Duration: </strong>{{ movie.movie_duration }}<br>
-                    <strong>Book link: </strong> <a href="{{ movie.book_link }}" class="collection-item">Book link</a><br>
+                    <strong>Duration (min): </strong>{{ movie.movie_duration }}<br>
+                    <strong>Book link: </strong> <a href="{{ movie.book_link }}" class="collection-item">follow the link</a><br>
                     <strong>Description: </strong>{{ movie.movie_description }}<br>
                     <p><em>by: {{ movie.created_by }}</em></p>
                 </span>
@@ -53,30 +53,6 @@
         </ul>
     </div>
 
-    <!--<ul class="collapsible">
-        {% for movie in movies %}
-        <li>
-            <div class="collapsible-header">
-                <i class="fas fa-arrow-down tooltipped" data-position="bottom" data-tooltip="See more"></i>
-                {{ movie.movie_name }}
-                {% if session.user|lower == movie.created_by|lower %}
-                    <a href="{{ url_for('edit_movie', movie_id=movie._id) }}" class="btn-small">Edit</a>
-                    <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="btn-small red">Delete</a>
-                {% endif %}
-            </div>
-            <div class="collapsible-body">
-                <span>
-                <strong>Category: </strong>{{ movie.category_name }}<br>
-                <strong>Year: </strong>{{ movie.year }}<br>
-                <strong>Duration: </strong>{{ movie.movie_duration }}<br>
-                <strong>Book link: </strong>{{ movie.book_link }}<br>
-                <strong>Description: </strong>{{ movie.movie_description }}<br>
-                <p><em>by: {{ movie.created_by }}</em></p>
-                </span>
-            </div>
-        </li>
-        {% endfor %}
-  </ul>  -->
     {% else %}
         <h3 class="red-text text-darken-4 center-align">No Results Found</h3>
     {% endif %}
