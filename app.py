@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -21,7 +22,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home_page():
-    movies = list(mongo.db.movies.find())
+    movies = list(mongo.db.movies.find().sort("time_added", -1).limit(3))
     return render_template("home.html", movies=movies)
 
 @app.route("/movies")
@@ -109,7 +110,8 @@ def add_movie():
             "movie_description": request.form.get("movie_description"),
             "book_link": request.form.get("book_link"),
             "movie_image": request.form.get("movie_image"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "time_added": datetime.now()
         }
         mongo.db.movies.insert_one(movie)
         flash("Movie is successfully added!")
