@@ -53,4 +53,19 @@ body {
     align-items: center;
 }
 
+.row .col.m4, .row .col.l4{
+    width: 31%;
+    margin-right: 2%;
+
+}
+
+.card-image > img {
+    object-fit: cover;
+}
+
+.movie-cards { 
+    display: flex;
+    flex-flow: wrap;
+    width: 100%;
+  }
 /*Movie cards*/
