@@ -13,9 +13,13 @@
     <div class="row">
         <ul id="movieList">
             {% for movie in movies %}
-            <li class="col s12 m4 card small">
+            <li class="card col s12 m4 l4">
                 <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="{{ url_for('static', filename='images/movie_img.png') }}" data-tooltip="See more">
+                    {% if not movie.movie_image or movie.movie_image == "" %}
+                    <img class="activator" src="{{ url_for('static', filename='images/logo-icon.png') }}">
+                    {% else %}
+                    <img class="activator" src="{{ movie.movie_image }}">
+                    {% endif %}
                 </div>
                 <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">{{ movie.movie_name }}</span>
