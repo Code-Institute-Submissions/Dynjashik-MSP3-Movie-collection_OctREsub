@@ -68,4 +68,17 @@ body {
     flex-flow: wrap;
     width: 100%;
   }
+
+.background-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+.background-img img{
+    flex-shrink: 1;
+    min-width: 100%;
+    min-height: 100%
+}
 /*Movie cards*/

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!--Home page image-->
+<div class="background-img">
+    <img src="{{ url_for('static', filename='images/movie_books.jpg') }}" alt="movie and books">
+</div>
+
+<main class="container">
     <h2>Recently added movies</h2>
 
     <!--Movie cards-->
@@ -33,5 +39,5 @@
             {% endfor %}
         </ul>
     </div>
-
+</main>
 {% endblock %}
