@@ -104,3 +104,15 @@ body {
     font-family: Helvetica, sans-serif;
     margin: 10px 0 10px 0;
 }
+
+.card-overflow{
+    overflow: inherit;
+}
+
+.btn-delete{
+    right: 1px!important;
+}
+
+.btn-edit{
+    right: 45px!important;
+}
