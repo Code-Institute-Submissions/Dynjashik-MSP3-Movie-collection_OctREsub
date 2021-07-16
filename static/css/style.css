@@ -15,10 +15,18 @@ body {
     font-size: 16px;
 }
 
+/*Changing logo size to be in line with nav bar size*/
+@media (min-width: 601px){
+    .brand-logo img {
+        height: 64px;
+      }
+    }
+    
+@media (max-width: 600px){
 .brand-logo img {
-    width: 4.4rem;
+    height: 56px;
+    }
 }
-
 /*Search box*/
 
 .search-input {
