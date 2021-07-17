@@ -34,7 +34,7 @@
 				<a href="{{ url_for('home_page') }}" class="center brand-logo">
                     <img src="../static/images/logo-icon.png" alt="Website logo">
                 </a>
-				<a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars black-text"></i></a>
                 {% if session.user %}
                 <span class="username">{{session.user}}</span>
                 {% endif %}
@@ -43,7 +43,7 @@
 
         <!-- mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><h4 class="light-blue-text text-darken 4">Movies by books</h4></li>
+            <li><h4 class="orange lighten-1 text-darken 4">Movies by books</h4></li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
         {% if session.user %}
@@ -69,7 +69,7 @@
                           <p>{{ message }}</p>
                         </div>
                         <div class="modal-footer flash-modal-button">
-                          <a href="#!" class="modal-action modal-close waves-effect waves-green btn">OK</a>
+                          <a href="#!" class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
                         </div>
                     </div>
                 {% endfor %}

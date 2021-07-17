@@ -3,7 +3,7 @@
 
 <!--Home page image-->
 <div class="background-img">
-    <img src="{{ url_for('static', filename='images/movie_books.jpg') }}" alt="movie and books">
+    <img src="{{ url_for('static', filename='images/background-img.jpg') }}" alt="movie and books">
 </div>
 
 <main class="container">
@@ -21,9 +21,9 @@
                     {% endif %}
 
                     {% if session.user|lower == movie.created_by|lower %}
-                    <a class="btn-edit btn-floating halfway-fab waves-effect waves-light btn-color" href="{{ url_for('edit_movie', movie_id=movie._id) }}"><i class="material-icons">edit</i></a>
+                    <a class="btn-edit btn-floating halfway-fab waves-effect waves-light cyan lighten-1" href="{{ url_for('edit_movie', movie_id=movie._id) }}"><i class="material-icons black-text">edit</i></a>
                     <!-- Delete Modal -->
-                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light red lighten-3" href="#modal{{movie._id}}"><i class="material-icons">delete</i></a>
+                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light red lighten-1" href="#modal{{movie._id}}"><i class="material-icons black-text">delete</i></a>
                     {% endif %}
 
                 </div>
@@ -34,13 +34,13 @@
                         <h5>Are you sure want to delete this movie?</h5>
                         </div>
                         <div class="modal-footer">
-                        <a href="#!" class="modal-close btn-flat btn-yellow">No</a>
-                        <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="modal-close btn btn-color">Yes</a>
+                        <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="modal-close btn cyan lighten-1 black-text">Yes</a>
+                        <a href="#!" class="modal-close btn-flat red lighten-1 black-text">No</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>
+                <span class="card-title grey-text text-darken-4"><i class="material-icons right black-text">close</i>
                     <strong>{{ movie.movie_name }}</strong>
                     <p class="card-reveal-info">Category: {{ movie.category_name }}</p>
                     <p class="card-reveal-info">Year: {{ movie.year }}</p>

@@ -4,26 +4,26 @@
     <h3 class="center-align">Manage Categories</h3>
     <div class="row">
         <div class="col s12 center-align">
-            <a href="{{ url_for('add_category') }}" class="btn-large"> Add Category</a>
+            <a href="{{ url_for('add_category') }}" class="btn-large cyan lighten-1 black-text"> Add Category</a>
         </div>
     </div>
 
     <div class="row">
         {% for category in categories %}
             <div class="col s12 m3">
-                <div class="card center-align">
+                <div class="card center-align category-card-color">
                     <div class="card-content">
                         <span class="card-title">{{ category.category_name }}</span>
                     </div>
                     <div class="card-action">
-                        <a class="btn-delete modal-trigger btn-floating waves-effect waves-light red lighten-3" href="#modal{{category._id}}"><i class="material-icons">delete</i></a>
+                        <a class="btn-delete modal-trigger btn-floating waves-effect waves-light red lighten-1" href="#modal{{category._id}}"><i class="material-icons">delete</i></a>
                         <div id="modal{{category._id}}" class="modal">
                             <div class="modal-content">
                             <h5>Are you sure want to delete this category?</h5>
                             </div>
                             <div class="modal-footer">
-                            <a href="#!" class="modal-close btn-flat btn-yellow">No</a>
-                            <a href="{{ url_for('delete_category', category_id=category._id) }}" class="modal-close btn btn-color">Yes</a>
+                            <a href="{{ url_for('delete_category', category_id=category._id) }}" class="modal-close btn cyan lighten-1 black-text">Yes</a>
+                            <a href="#!" class="modal-close btn-flat red lighten-1">No</a>    
                             </div>
                         </div>
                     </div>
