@@ -1,9 +1,18 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 body {
-    background-color: gainsboro;
+    background-color: white;
+    color: black;
 }
 
+.nav-background{
+    color: black;
+    background-color: #ffd468;
+}
+.nav-background ul a{
+    color: black;
+    font-size: 15px;
+}
 .row {
     margin-bottom: 0;
 }
@@ -13,6 +22,15 @@ body {
     margin-right: 15px;
     font-weight: bold;
     font-size: 16px;
+}
+.btn-color{
+    background-color: #94d6d6;
+    color: black;
+}
+
+.btn-yellow{
+    background-color: #fba337;
+    color: black;
 }
 
 /*Changing logo size to be in line with nav bar size*/
@@ -92,6 +110,10 @@ body {
 
 /*Movie cards*/
 
+.card-background{
+    border-color: #94d6d6;
+    border-style: solid;
+}
 .card-reveal-info{
     font-size: 16px;
     font-weight: 400px;
