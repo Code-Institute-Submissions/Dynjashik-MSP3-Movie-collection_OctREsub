@@ -3,11 +3,12 @@
 body {
     background-color: white;
     color: black;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-background{
     color: black;
-    background-color: #ffd468;
+    background-color: #ffa726 ;
 }
 .nav-background ul a{
     color: black;
@@ -22,15 +23,6 @@ body {
     margin-right: 15px;
     font-weight: bold;
     font-size: 16px;
-}
-.btn-color{
-    background-color: #94d6d6;
-    color: black;
-}
-
-.btn-yellow{
-    background-color: #fba337;
-    color: black;
 }
 
 /*Changing logo size to be in line with nav bar size*/
@@ -111,7 +103,7 @@ body {
 /*Movie cards*/
 
 .card-background{
-    border-color: #94d6d6;
+    border-color: #ffa726 ;
     border-style: solid;
     margin-left: 0px!important;
 }
@@ -152,3 +144,14 @@ body {
 .flash-modal-button{
     text-align: center!important;
 }
+
+/*category buttons*/
+.btn-margin{
+    margin: 3px 0px 3px 0;
+}
+
+.category-card-color{
+    border-color: #ffa726 ;
+    border-style: solid;
+}
+
