@@ -35,7 +35,7 @@
                     {% if session.user|lower == movie.created_by|lower %}
                     <a class="btn-edit btn-floating halfway-fab waves-effect waves-light btn-color" href="{{url_for('edit_movie', movie_id=movie._id)}}"><i class="material-icons">edit</i></a>
                     <!-- Delete Modal -->
-                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light btn-yellow" href="#modal{{movie._id}}"><i class="material-icons">delete</i></a>
+                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light red lighten-3" href="#modal{{movie._id}}"><i class="material-icons">delete</i></a>
                     {% endif %}
 
                 </div>
