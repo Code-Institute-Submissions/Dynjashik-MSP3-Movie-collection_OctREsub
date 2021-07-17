@@ -3,7 +3,7 @@
 body {
     background-color: white;
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Tahoma, Verdana, sans-serif;
 }
 
 .nav-background{
@@ -102,10 +102,16 @@ body {
 
 /*Movie cards*/
 
+.card-padding .card-background{
+    padding:0;
+}
+
 .card-background{
-    border-color: #ffa726 ;
-    border-style: solid;
     margin-left: 0px!important;
+}
+
+.card-background .card-name{
+    padding: 5px;
 }
 .card-reveal-info{
     font-size: 16px;
@@ -145,13 +151,21 @@ body {
     text-align: center!important;
 }
 
-/*category buttons*/
+/*Category buttons*/
 .btn-margin{
     margin: 3px 0px 3px 0;
 }
 
-.category-card-color{
-    border-color: #ffa726 ;
-    border-style: solid;
+/*Category cards*/
+
+.category-card .category-name{
+    padding: 5px;
 }
 
+.category-card .category-action{
+    padding: 5px 0px;
+}
+
+.btn-add{
+    margin-bottom: 10px;
+}

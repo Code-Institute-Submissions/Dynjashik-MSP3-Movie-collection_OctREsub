@@ -20,10 +20,10 @@
 
     {% if movies|length > 0 %}
     <!--Movie cards-->
-    <div class="row">
+    <div class="row card-padding">
         <ul class="movie-cards">
             {% for movie in movies %}
-            <li class="col s12 m4 card card-background">
+            <li class="col s12 m4 card card-background center-align">
                 <div class="card-image waves-effect waves-block waves-light card-overflow">
                     {% if not movie.movie_image or movie.movie_image == "" %}
                     <img class="activator" src="{{ url_for('static', filename='images/logo-icon.png') }}">
@@ -38,7 +38,7 @@
                     {% endif %}
 
                 </div>
-                <div class="card-content">
+                <div class="card-content card-name">
                     <span class="card-title activator">{{ movie.movie_name }}</span>
                     <div id="modal{{movie._id}}" class="modal">
                         <div class="modal-content">
