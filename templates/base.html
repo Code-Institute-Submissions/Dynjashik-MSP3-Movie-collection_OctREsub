@@ -19,16 +19,16 @@
         <nav class="nav-extended nav-background text-shadow">
 			<div class="nav-wrapper">
                 <ul class=" left hide-on-med-and-down">
-                    <li><a href="{{ url_for('home_page') }}">Home</a></li>
-                    <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
+                    <li {% if request.path == url_for('home_page') %}class="active"{% endif %}><a href="{{ url_for('home_page') }}">Home</a></li>
+                    <li {% if request.path == url_for('movie_page') %}class="active"{% endif %}><a href="{{ url_for('movie_page') }}">Movies</a></li>
                     {% if session.user %}
-                    <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
+                    <li {% if request.path == url_for('add_movie') %}class="active"{% endif %}><a href="{{ url_for('add_movie') }}">Add movie</a></li>
                     {% if session.user|lower == "admin"|lower %}
-                    <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+                    <li {% if request.path == url_for('get_categories') %}class="active"{% endif %}><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
                     {% endif %}
-                    <li><a href="{{ url_for('log_out') }}">Log out</a></li>
+                    <li {% if request.path == url_for('log_out') %}class="active"{% endif %}><a href="{{ url_for('log_out') }}">Log out</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
+                    <li {% if request.path == url_for('sign_in') %}class="active"{% endif %}><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
                     {% endif %}
                 </ul>
 				<a href="{{ url_for('home_page') }}" class="center brand-logo">

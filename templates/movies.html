@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <main class="container">
-    <h3 class="center-align">All Movies</h3>
-
-
     <!--Search Box-->
     <form class="search-input" action="{{ url_for('search') }}" method="POST">
         <input type="search" placeholder="Search Movie..." name="query" id="query">
