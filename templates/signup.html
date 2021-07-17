@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <main class="container">
+    <h3 class="center-align">Sign Up</h3>
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('sign_up') }}">
 
@@ -37,7 +38,7 @@
                     <i class="material-icons prefix">replay</i>
                     <input id="password2" type="password" minlength="3"
                         maxlength="16" pattern="^[a-zA-Z0-9]{3,16}$" class="validate" required>
-                    <label for="password2">Retype Password</label>
+                    <label for="password2">Confirm Password</label>
                 </div>
             </div>
 
