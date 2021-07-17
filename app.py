@@ -31,6 +31,11 @@ def movie_page():
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("movies.html", movies=movies, categories=categories)
 
+@app.route("/movies/<category>")
+def movie_page_filtered(category):
+    movies = list(mongo.db.movies.find({'category_name': category}))
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("movies.html", movies=movies, categories=categories)
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
@@ -159,7 +164,7 @@ def get_categories():
 def add_category():
     if request.method == "POST":
         category = {
-            "category_name": request.form.get("category_name")
+            "category_name": request.form.get("category_name").capitalize()
         }
         mongo.db.categories.insert_one(category)
         flash("New Category Added")
