@@ -168,7 +168,7 @@ def add_category():
         for category in categories:
             if category["category_name"] == new_category:
                 flash("The category already exists")
-                return redirect(url_for("get_categories"))
+                return redirect(url_for("add_category"))
         category_dict = {
             "category_name": request.form.get("category_name").capitalize()
         }
