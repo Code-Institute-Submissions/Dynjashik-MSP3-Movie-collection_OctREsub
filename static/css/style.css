@@ -113,6 +113,7 @@ body {
 .card-background{
     border-color: #94d6d6;
     border-style: solid;
+    margin-left: 0px!important;
 }
 .card-reveal-info{
     font-size: 16px;
@@ -137,4 +138,17 @@ body {
 
 .btn-edit{
     right: 45px!important;
+}
+
+.flash-modal-content{
+    text-align: center;
+}
+
+.flash-modal-content p{
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+
+.flash-modal-button{
+    text-align: center!important;
 }

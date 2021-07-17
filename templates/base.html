@@ -64,8 +64,13 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <div class="row flashes">
-                        <h4 class="center-align">{{ message }}</h4>
+                    <div id="modal" class="modal flash-modal">
+                        <div class="modal-content flash-modal-content">
+                          <p>{{ message }}</p>
+                        </div>
+                        <div class="modal-footer flash-modal-button">
+                          <a href="#!" class="modal-action modal-close waves-effect waves-green btn">OK</a>
+                        </div>
                     </div>
                 {% endfor %}
             {% endif %}

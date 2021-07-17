@@ -4,6 +4,8 @@ $(document).ready(function(){
     $('.tooltipped').tooltip();
     $('select').formSelect();
     $('.modal').modal();
+    $('.flash-modal').modal();
+    $('.flash-modal').modal('open'); 
 
 validateMaterializeSelect();
     function validateMaterializeSelect() {
