@@ -109,6 +109,7 @@ def add_movie():
     if request.method == "POST":
         movie = {
             "movie_name": request.form.get("movie_name"),
+            "movie_link": request.form.get("movie_link"),
             "category_name": request.form.get("category_name"),
             "year": request.form.get("year"),
             "movie_duration": request.form.get("movie_duration"),
@@ -131,6 +132,7 @@ def edit_movie(movie_id):
     if request.method == "POST":
         submit = {
             "movie_name": request.form.get("movie_name"),
+            "movie_link": request.form.get("movie_link"),
             "category_name": request.form.get("category_name"),
             "year": request.form.get("year"),
             "movie_duration": request.form.get("movie_duration"),
