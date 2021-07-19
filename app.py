@@ -42,7 +42,7 @@ def search():
     query = request.form.get("query")
     movies = list(mongo.db.movies.find({"$text": {"$search": query}}))
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("movies.html", movies=movies, categories=categories)
+    return render_template("movies.html", movies=movies, categories=categories, search_str=query)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -64,7 +64,7 @@ def sign_up():
         mongo.db.users.insert_one(register)
 
         session['registered_user'] = username_input
-        flash("Sign Up Successful!")
+        flash("Sign up successful!")
         return redirect(url_for("sign_in"))
 
     return render_template("signup.html")
@@ -85,12 +85,12 @@ def sign_in():
                     return redirect(url_for("home_page"))
             else:
                 # invalid password match
-                flash("Incorrect Username and/or Password")
+                flash("Invalid password")
                 return redirect(url_for("sign_in"))
 
         else:
             # username doesn't exist
-            flash("Incorrect Username and/or Password")
+            flash("Username doesn't exist")
             return redirect(url_for("sign_in"))
 
     return render_template("signin.html")
@@ -142,7 +142,7 @@ def edit_movie(movie_id):
             "created_by": session["user"]
         }
         mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit)
-        flash("Movie is Successfully Updated")
+        flash("Movie is successfully updated")
 
     movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
@@ -152,8 +152,8 @@ def edit_movie(movie_id):
 @app.route("/delete_movie/<movie_id>")
 def delete_movie(movie_id):
     mongo.db.movies.remove({"_id": ObjectId(movie_id)})
-    flash("Movie Successfully Deleted")
-    return redirect(url_for("movie_page"))
+    flash("Movie is successfully deleted")
+    return redirect(request.referrer)
 
 
 @app.route("/get_categories")
@@ -175,7 +175,7 @@ def add_category():
             "category_name": request.form.get("category_name").capitalize()
         }
         mongo.db.categories.insert_one(category_dict)
-        flash("New category successfully added")
+        flash("New category is successfully added")
         return redirect(url_for("get_categories"))
 
     return render_template("add_category.html")
@@ -184,7 +184,7 @@ def add_category():
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
-    flash("Category Successfully Deleted")
+    flash("Category is successfully deleted")
     return redirect(url_for("get_categories"))
 
 

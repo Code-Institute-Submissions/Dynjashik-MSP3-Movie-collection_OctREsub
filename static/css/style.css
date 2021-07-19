@@ -25,18 +25,6 @@ body {
     font-size: 16px;
 }
 
-/*Changing logo size to be in line with nav bar size*/
-@media (min-width: 601px){
-    .brand-logo img {
-        height: 64px;
-      }
-    }
-    
-@media (max-width: 600px){
-.brand-logo img {
-    height: 56px;
-    }
-}
 /*Search box*/
 
 .search-input {
@@ -52,7 +40,7 @@ body {
 }
 
 #query {
-    width: 50%;
+    width: 60%;
     position: relative;
     margin: 0;
 }
@@ -71,17 +59,11 @@ body {
     align-items: center;
 }
 
-.row .col.m4, .row .col.l4{
-    width: 31%;
-    margin-right: 2%;
-
-}
-
 .card-image > img {
     object-fit: cover;
 }
 
-.movie-cards { 
+.movie-cards, .category-cards { 
     display: flex;
     flex-flow: wrap;
     width: 100%;
@@ -102,21 +84,19 @@ body {
 
 /*Movie cards*/
 
-.card-padding .card-background{
-    padding:0;
-}
-
 .card-background{
     margin-left: 0px!important;
 }
 
-.card-background .card-name{
-    padding: 5px;
+.card-background .card-text{
+    text-align: left;
+    font-size: 18px!important; /*не работает*/
+    padding: 15px;
 }
+
 .card-reveal-info{
     font-size: 16px;
     font-weight: 400px;
-    font-family: Helvetica, sans-serif;
     margin: 0;
 }
 
@@ -158,14 +138,73 @@ body {
 
 /*Category cards*/
 
-.category-card .category-name{
-    padding: 5px;
+.category-name{
+    padding: 10px!important;
 }
 
-.category-card .category-action{
-    padding: 5px 0px;
+.category-name span{
+    margin: 0px!important;
+}
+
+.category-action{
+    padding: 10px 0px!important;
 }
 
 .btn-add{
     margin-bottom: 10px;
+}
+
+/*Changing logo size to be in line with nav bar size*/
+@media (min-width: 601px){
+    .brand-logo img {
+        height: 64px;
+    }
+
+    .card-sizing{
+        width: 31%;
+        margin-right: 2%;
+    }
+    .category-sizing{
+        width: 23%;
+        margin-right: 2%;
+    }   
+}
+
+@media (min-width: 601px) and (max-width: 999px)  {
+    .card-sizing{
+        width: 48%;
+        margin-right: 2%;
+    }
+    .category-sizing{
+        width: 31%;
+        margin-right: 2%;
+    }
+
+    #query{
+        width: 80%;
+    }
+}
+
+@media (max-width: 600px){
+    .brand-logo img {
+        height: 56px;
+    }
+
+    .card-sizing, .category-sizing{
+        width: 100%;
+        left: auto;
+        right: auto;
+    }
+
+    #query{
+        width: 80%;
+    }
+
+    .category-menu a {
+        font-size: 12px;
+        line-height: 30px;
+        height: 30px;
+        padding: 0 12px;
+    }
+
 }

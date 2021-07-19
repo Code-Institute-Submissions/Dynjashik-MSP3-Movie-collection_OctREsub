@@ -9,13 +9,13 @@
 <main class="container">
     <h3 class="center-align">Recently added movies</h3>
     <!--Movie cards-->
-    <div class="row card-padding">
+    <div class="row">
         <ul class="movie-cards">
             {% for movie in movies %}
-            <li class="col s12 m4 card card-background">
+            <li class="card-sizing card card-background center-align">
                 <div class="card-image waves-effect waves-block waves-light card-overflow">
                     {% if not movie.movie_image or movie.movie_image == "" %}
-                    <img class="activator" src="{{ url_for('static', filename='images/logo-icon.png') }}">
+                    <img class="activator" src="{{ url_for('static', filename='images/movie-icon.png') }}">
                     {% else %}
                     <img class="activator" src="{{ movie.movie_image }}">
                     {% endif %}

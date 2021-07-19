@@ -4,29 +4,42 @@
     <h3 class="center-align">All Movies</h3>
     <!--Search Box-->
     <form class="search-input" action="{{ url_for('search') }}" method="POST">
-        <input type="search" placeholder="Search Movie..." name="query" id="query">
+        <input type="search" placeholder="Enter movie name or category" name="query" id="query">
         <div class="search-btns">
             <button type="submit" class="waves-effect waves-light btn cyan lighten-1 black-text"><i class="fas fa-search"></i></button>
         </div>
     </form>
 
     <div class="category-menu center-align">
-        <a href="{{ url_for('movie_page') }}" class="waves-effect waves-light btn cyan lighten-1 black-text">All movies</a>
-     <!--Categories Menu -->
-        {% for category in categories %} 
-            <a class="waves-effect waves-light btn cyan lighten-1 black-text btn-margin" href="{{url_for('movie_page_filtered', category=category.category_name)}}">{{ category.category_name }}</a>
+        <!--Categories Menu -->
+        {% if request.path == url_for('movie_page') %}
+            {% set category_class = "waves-effect waves-light btn cyan accent-1 black-text btn-margin" %}
+        {% else %}
+            {% set category_class = "waves-effect waves-light btn cyan lighten-1 black-text btn-margin" %}
+        {% endif %}
+        <a class="{{ category_class }}" href="{{ url_for('movie_page') }}" >All movies</a>
+        
+        {% for category in categories %}
+            {% if request.path == url_for('movie_page_filtered', category=category.category_name) %}
+                {% set category_class = "waves-effect waves-light btn cyan accent-1 black-text btn-margin" %}
+            {% else %}
+                {% set category_class = "waves-effect waves-light btn cyan lighten-1 black-text btn-margin" %}
+            {% endif %}
+            <a class="{{ category_class }}" href="{{url_for('movie_page_filtered', category=category.category_name)}}">{{ category.category_name }}</a>
         {% endfor %}
     </div>
-
+    {% if request.path == url_for('search') %}
+        <p class= "center-align"> You searched for <i>{{search_str}}</i></p>
+    {% endif %}
     {% if movies|length > 0 %}
     <!--Movie cards-->
-    <div class="row card-padding">
+    <div class="row">
         <ul class="movie-cards">
             {% for movie in movies %}
-            <li class="col s12 m4 card card-background center-align">
+            <li class="card-sizing card card-background center-align">
                 <div class="card-image waves-effect waves-block waves-light card-overflow">
                     {% if not movie.movie_image or movie.movie_image == "" %}
-                    <img class="activator" src="{{ url_for('static', filename='images/logo-icon.png') }}">
+                    <img class="activator" src="{{ url_for('static', filename='images/movie-icon.png') }}">
                     {% else %}
                     <img class="activator" src="{{ movie.movie_image }}">
                     {% endif %}
