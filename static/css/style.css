@@ -25,6 +25,17 @@ body {
     font-size: 16px;
 }
 
+.recently-added {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/*Mobile nav*/
+
+.title-margin {
+    margin-left: 30px;
+}
+
 /*Search box*/
 
 .search-input {
@@ -47,6 +58,10 @@ body {
 
 .search-btns * {
     height: 100%;
+}
+
+.search-btns {
+    margin-left: 10px;
 }
 
 .search-btns > button > i {
