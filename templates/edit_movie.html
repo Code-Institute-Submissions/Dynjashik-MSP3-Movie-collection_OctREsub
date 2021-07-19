@@ -18,7 +18,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-film prefix"></i>
                     <input id="movie_link" name="movie_link" type="text" class="validate" required>
-                    <label for="movie_link">Movie URL(optional)</label>
+                    <label for="movie_link">Movie URL</label>
                 </div>
             </div>
             <!-- category selection -->
@@ -83,16 +83,15 @@
                 </div>
             </div>
 
-         <!-- submit button -->
+         <!-- submit and cancel buttons -->
             <div class="row">
                 <div class="col s12 center-align">
-                    <!-- cancel button -->
+                    <button type="submit" class="btn-large cyan lighten-1 black-text">Submit
+                        <i class="fas fa-edit right"></i>
+                    </button>
                     <a href="{{ url_for('movie_page') }}" class="btn-large red lighten-1 black-text">
                         Cancel <i class="fas fa-times-circle right"></i>
                     </a>
-                    <button type="submit" class="btn-large cyan lighten-1 black-text">Edit movie 
-                        <i class="fas fa-edit right"></i>
-                    </button>
                 </div>
             </div>  
         </form>
