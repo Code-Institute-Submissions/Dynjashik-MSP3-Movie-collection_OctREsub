@@ -29,7 +29,7 @@
         {% endfor %}
     </div>
     {% if request.path == url_for('search') %}
-        <p class= "center-align"> You searched for <i>{{search_str}}</i></p>
+        <p class= "center-align"> Showing results for <i>{{search_str}}</i></p>
     {% endif %}
     {% if movies|length > 0 %}
     <!--Movie cards-->
@@ -45,9 +45,9 @@
                     {% endif %}
 
                     {% if session.user|lower == movie.created_by|lower %}
-                    <a class="btn-edit btn-floating halfway-fab waves-effect waves-light cyan lighten-1" href="{{url_for('edit_movie', movie_id=movie._id)}}"><i class="material-icons black-text">edit</i></a>
+                    <a class="btn-edit btn-floating halfway-fab waves-effect waves-light cyan lighten-1" href="{{url_for('edit_movie', movie_id=movie._id)}}"><i class="material-icons">edit</i></a>
                     <!-- Delete Modal -->
-                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light red lighten-1" href="#modal{{movie._id}}"><i class="material-icons black-text">delete</i></a>
+                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light red lighten-1" href="#modal{{movie._id}}"><i class="material-icons">delete</i></a>
                     {% endif %}
 
                 </div>
