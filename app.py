@@ -16,14 +16,18 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
+
 mongo = PyMongo(app)
 
 
 @app.route("/")
 @app.route("/home")
 def home_page():
-    movies = list(mongo.db.movies.find().sort("time_added", -1).limit(3))
-    return render_template("home.html", movies=movies)
+    recently_added_movies = list(
+        mongo.db.movies.find().sort("time_added", -1).limit(3))
+    return render_template(
+        "home.html", recently_added_movies=recently_added_movies)
+
 
 @app.route("/movies")
 def movie_page():
@@ -31,11 +35,13 @@ def movie_page():
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("movies.html", movies=movies, categories=categories)
 
+
 @app.route("/movies/<category>")
 def movie_page_filtered(category):
     movies = list(mongo.db.movies.find({'category_name': category}))
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("movies.html", movies=movies, categories=categories)
+
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
@@ -47,6 +53,10 @@ def search():
 
 @app.route("/signup", methods=["GET", "POST"])
 def sign_up():
+    # check if user already logged in, then redirect to home page
+    if session["user"]:
+        return redirect(url_for("home_page"))
+
     if request.method == "POST":
         username_input = request.form.get("username")
         # check if username already exists in db
@@ -72,6 +82,9 @@ def sign_up():
 
 @app.route("/signin", methods=["GET", "POST"])
 def sign_in():
+    # check if user already logged in, then redirect to home page
+    if session["user"]:
+        return redirect(url_for("home_page"))
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
@@ -104,7 +117,7 @@ def log_out():
     return redirect(url_for("sign_in"))
 
 
-@app.route("/add_movie", methods=["GET", "POST"])
+@app.route("/movie/add", methods=["GET", "POST"])
 def add_movie():
     if request.method == "POST":
         movie = {
@@ -127,7 +140,7 @@ def add_movie():
     return render_template("add_movie.html", categories=categories)
 
 
-@app.route("/edit_movie/<movie_id>", methods=["GET", "POST"])
+@app.route("/movie/<movie_id>/edit", methods=["GET", "POST"])
 def edit_movie(movie_id):
     if request.method == "POST":
         submit = {
@@ -149,20 +162,20 @@ def edit_movie(movie_id):
     return render_template("edit_movie.html", movie=movie, categories=categories)
 
 
-@app.route("/delete_movie/<movie_id>")
+@app.route("/movie/<movie_id>/delete")
 def delete_movie(movie_id):
     mongo.db.movies.remove({"_id": ObjectId(movie_id)})
     flash("Movie is successfully deleted")
     return redirect(request.referrer)
 
 
-@app.route("/get_categories")
+@app.route("/categories")
 def get_categories():
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     return render_template("categories.html", categories=categories)
 
 
-@app.route("/add_category", methods=["GET", "POST"])
+@app.route("/category/add", methods=["GET", "POST"])
 def add_category():
     if request.method == "POST":
         categories = mongo.db.categories.find()
@@ -181,7 +194,7 @@ def add_category():
     return render_template("add_category.html")
 
 
-@app.route("/delete_category/<category_id>")
+@app.route("/category/<category_id>/delete")
 def delete_category(category_id):
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
     flash("Category is successfully deleted")

@@ -11,7 +11,7 @@
     <!--Movie cards-->
     <div class="row">
         <ul class="movie-cards">
-            {% for movie in movies %}
+            {% for movie in recently_added_movies %}
             <li class="card-sizing card card-background center-align">
                 <div class="card-image waves-effect waves-block waves-light card-overflow">
                     {% if not movie.movie_image or movie.movie_image == "" %}
