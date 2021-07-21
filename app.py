@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, abort)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -15,9 +15,18 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+ADMIN_USER_NAME = 'admin'
 
 
 mongo = PyMongo(app)
+
+
+@app.before_request
+def before_request():
+    if "user" in session:
+        session["is_admin"] = session["user"] == ADMIN_USER_NAME
+    else:
+        session["is_admin"] = False
 
 
 @app.route("/")
@@ -54,21 +63,22 @@ def search():
 @app.route("/signup", methods=["GET", "POST"])
 def sign_up():
     # check if user already logged in, then redirect to home page
-    if session["user"]:
+    if "user" in session:
         return redirect(url_for("home_page"))
 
     if request.method == "POST":
-        username_input = request.form.get("username")
+        username_input = request.form.get("username").lower()
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
-            {"username": username_input.lower()})
+            {"username": username_input})
 
         if existing_user:
             flash("Username " + existing_user["username"] + " already exists")
             return redirect(url_for("sign_up"))
 
         register = {
-            "username": username_input.lower(),
+            "username": username_input,
+            "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password"))
         }
         mongo.db.users.insert_one(register)
@@ -83,7 +93,7 @@ def sign_up():
 @app.route("/signin", methods=["GET", "POST"])
 def sign_in():
     # check if user already logged in, then redirect to home page
-    if session["user"]:
+    if "user" in session:
         return redirect(url_for("home_page"))
     if request.method == "POST":
         # check if username exists in db
@@ -91,8 +101,7 @@ def sign_in():
             {"username": request.form.get("username").lower()})
         if existing_user:
             # ensure hashed password matches user input
-            if check_password_hash(
-                existing_user["password"], request.form.get("password")):
+            if check_password_hash(existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}!".format(request.form.get("username")))
                     return redirect(url_for("home_page"))
@@ -152,7 +161,6 @@ def edit_movie(movie_id):
             "movie_description": request.form.get("movie_description"),
             "book_link": request.form.get("book_link"),
             "movie_image": request.form.get("movie_image"),
-            "created_by": session["user"]
         }
         mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit)
         flash("Movie is successfully updated")
@@ -171,33 +179,42 @@ def delete_movie(movie_id):
 
 @app.route("/categories")
 def get_categories():
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    return render_template("categories.html", categories=categories)
+    if not session["user"] or not session["is_admin"]:
+        abort(404)
+    else:
+        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        return render_template("categories.html", categories=categories)
 
 
 @app.route("/category/add", methods=["GET", "POST"])
 def add_category():
-    if request.method == "POST":
-        categories = mongo.db.categories.find()
-        new_category = request.form.get("category_name").capitalize()
-        for category in categories:
-            if category["category_name"] == new_category:
-                flash("The category already exists")
-                return redirect(url_for("add_category"))
-        category_dict = {
-            "category_name": request.form.get("category_name").capitalize()
-        }
-        mongo.db.categories.insert_one(category_dict)
-        flash("New category is successfully added")
-        return redirect(url_for("get_categories"))
+    if not session["user"] or session["user"] != ADMIN_USER_NAME:
+        abort(404)
+    else:
+        if request.method == "POST":
+            categories = mongo.db.categories.find()
+            new_category = request.form.get("category_name").capitalize()
+            for category in categories:
+                if category["category_name"] == new_category:
+                    flash("The category already exists")
+                    return redirect(url_for("add_category"))
+            category_dict = {
+                "category_name": request.form.get("category_name").capitalize()
+            }
+            mongo.db.categories.insert_one(category_dict)
+            flash("New category is successfully added")
+            return redirect(url_for("get_categories"))
 
-    return render_template("add_category.html")
+        return render_template("add_category.html")
 
 
 @app.route("/category/<category_id>/delete")
 def delete_category(category_id):
-    mongo.db.categories.remove({"_id": ObjectId(category_id)})
-    flash("Category is successfully deleted")
+    if not session["user"] or session["user"] != ADMIN_USER_NAME:
+        abort(404)
+    else:
+        mongo.db.categories.remove({"_id": ObjectId(category_id)})
+        flash("Category is successfully deleted")
     return redirect(url_for("get_categories"))
 
 

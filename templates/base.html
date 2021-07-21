@@ -23,7 +23,7 @@
                     <li {% if request.path == url_for('movie_page') %}class="active"{% endif %}><a href="{{ url_for('movie_page') }}">Movies</a></li>
                     {% if session.user %}
                     <li {% if request.path == url_for('add_movie') %}class="active"{% endif %}><a href="{{ url_for('add_movie') }}">Add movie</a></li>
-                    {% if session.user|lower == "admin"|lower %}
+                    {% if session.is_admin %}
                     <li {% if request.path == url_for('get_categories') %}class="active"{% endif %}><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
                     {% endif %}
                     <li {% if request.path == url_for('log_out') %}class="active"{% endif %}><a href="{{ url_for('log_out') }}">Log out</a></li>
@@ -36,7 +36,7 @@
                 </a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars black-text"></i></a>
                 {% if session.user %}
-                <span class="username">{{session.user}}</span>
+                <a class="username">{{session.user}}</a>
                 {% endif %}
 			</div>
 		</nav>
@@ -48,7 +48,7 @@
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
         {% if session.user %}
             <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
-            {% if session.user|lower == "admin"|lower %}
+            {% if session.user|lower == "Admin"|lower %}
                 <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
             {% endif %}
             <li><a href="{{ url_for('log_out') }}">Log out</a></li>
