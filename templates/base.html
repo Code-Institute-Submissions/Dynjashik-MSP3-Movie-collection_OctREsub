@@ -23,6 +23,7 @@
                     <li {% if request.path == url_for('movie_page') %}class="active"{% endif %}><a href="{{ url_for('movie_page') }}">Movies</a></li>
                     {% if session.user %}
                     <li {% if request.path == url_for('add_movie') %}class="active"{% endif %}><a href="{{ url_for('add_movie') }}">Add movie</a></li>
+                    <li {% if request.path == url_for('get_user_profile') %}class="active"{% endif %}><a href="{{ url_for('get_user_profile') }}">Profile</a></li>
                     {% if session.is_admin %}
                     <li {% if request.path == url_for('get_categories') %}class="active"{% endif %}><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
                     {% endif %}
@@ -48,6 +49,7 @@
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
         {% if session.user %}
             <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
+            <li><a href="{{ url_for('get_user_profile') }}">Profile</a></li>
             {% if session.user|lower == "Admin"|lower %}
                 <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
             {% endif %}
@@ -69,7 +71,7 @@
                           <p>{{ message }}</p>
                         </div>
                         <div class="modal-footer flash-modal-button">
-                          <a href="#!" class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
+                          <a class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
                         </div>
                     </div>
                 {% endfor %}

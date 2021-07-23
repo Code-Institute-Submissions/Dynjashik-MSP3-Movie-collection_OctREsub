@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="container">
+    <!-- Personal Information block -->
+    <div class="row user-profile-form">
+        <h3 class="center-align">Personal information</h3>
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('update_profile') }}">
+            <!-- username -->
+            <div class="row">
+                <div class="input-field  col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="username" name="username" type="text" minlength="3" {% if session['is_admin'] %} disabled {% endif %}
+                        maxlength="10" value="{{ user_data.username }}" pattern="^[a-zA-Z0-9]{3,10}$" class="validate" required>
+                <label for="username">Username</label>
+                </div>
+            </div>
+            <!-- email -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" name="email" value="{{ user_data.email }}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="validate" required>
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <!-- update button -->
+            <div class="row center-align">
+                <button class="modal-trigger waves-effect waves-light btn cyan lighten-1 black-text"  href="#modal-user-update">Update</button>
+                <div id="modal-user-update" class="modal">
+                    <div class="modal-content">
+                    <h5>Are you sure want to update your personal information?</h5>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="modal-close btn cyan lighten-1 black-text">Yes</button>
+                    <button class="modal-close btn-flat red lighten-1 black-text">No</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    {% if user_movies|length > 0 %}
+    <!--Movie cards-->
+    <div class="row">
+        <ul class="movie-cards">
+            {% for movie in user_movies %}
+            <li class="card-sizing card card-background center-align">
+                <div class="card-image waves-effect waves-block waves-light card-overflow">
+                    {% if not movie.movie_image or movie.movie_image == "" %}
+                    <img class="activator" src="{{ url_for('static', filename='images/movie-icon.png') }}">
+                    {% else %}
+                    <img class="activator" src="{{ movie.movie_image }}">
+                    {% endif %}
+                    <a class="btn-edit btn-floating halfway-fab waves-effect waves-light cyan lighten-1" href="{{url_for('edit_movie', movie_id=movie._id)}}"><i class="material-icons">edit</i></a>
+                    <a class="btn-delete modal-trigger btn-floating halfway-fab waves-effect waves-light red lighten-1" href="#modal{{movie._id}}"><i class="material-icons">delete</i></a>
+                </div>
+                <div class="card-content card-name">
+                    <span class="card-title title-bottom activator">{{ movie.movie_name }}</span>
+                    <div id="modal{{movie._id}}" class="modal">
+                        <div class="modal-content">
+                        <h5>Are you sure want to delete this movie?</h5>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="modal-close btn cyan lighten-1 black-text">Yes</a>
+                        <a class="modal-close btn-flat red lighten-1 black-text">No</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-reveal card-text">
+                <span class="card-title"><i class="material-icons right">close</i>
+                    <strong><a href="{{ movie.movie_link }}" target="_blank">{{ movie.movie_name }}</a></strong> <br><br>
+                    <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i> {{ movie.category_name }}</p>
+                    <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i> {{ movie.year }}</p>
+                    <p class="card-reveal-info"> <i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
+                    <p class="card-reveal-info"><i class="fas fa-book prefix cyan-text lighten-1"></i> 
+                                                <a href="{{ movie.book_link }} " class="collection-item" target="_blank">Book link</a></p>
+                    <p class="card-reveal-description">{{ movie.movie_description }}</p>
+                    <p class="card-reveal-info"><em>added by: {{ movie.created_by }}</em></p>
+                </span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <h3 class="red-text text-darken-4 center-align">You have not added any movies yet.</h3>
+    {% endif %}
+</main>
+{% endblock %}
