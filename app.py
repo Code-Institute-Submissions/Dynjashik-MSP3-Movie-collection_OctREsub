@@ -78,7 +78,7 @@ def sign_up():
 
         register = {
             "username": username_input,
-            "email": request.form.get("email"),
+            "email": request.form.get("email").lower(),
             "password": generate_password_hash(request.form.get("password"))
         }
         mongo.db.users.insert_one(register)
@@ -117,6 +117,45 @@ def sign_in():
 
     return render_template("signin.html")
 
+
+@app.route("/profile")
+def get_user_profile():
+    if "user" not in session:
+        abort(404)
+    else:
+        user_data = mongo.db.users.find_one({'username': session["user"]})
+        user_movies = list(mongo.db.movies.find({'created_by': session["user"]}))
+        return render_template("profile.html", user_data=user_data, user_movies=user_movies)
+
+
+@app.route("/update_profile", methods=["POST"])
+def update_profile():
+    if "user" not in session:
+        abort(404)
+
+    if not (request.form.get("email") and (request.form.get("username") or session["is_admin"])):
+        flash("Please fill in all the required fields")
+    else:
+        if request.method == "POST":
+            user_updated = False
+            if request.form.get("email"):
+                new_email = request.form.get("email").lower()
+                mongo.db.users.update({"username": session["user"]},
+                                      {"$set": {"email": new_email}})
+                user_updated = True
+            if request.form.get("username"):
+                new_username = request.form.get("username").lower()
+                if not session["is_admin"] and new_username != ADMIN_USER_NAME:
+                    mongo.db.users.update({"username": session["user"]},
+                                          {"$set": {"username": new_username}})
+                    mongo.db.movies.update({"created_by": session["user"]},
+                                          {"$set": {"created_by": new_username}},
+                                        multi=True)
+                    session["user"] = new_username
+                    user_updated = True
+            if user_updated:
+                flash("Username information is successfully updated")
+    return redirect(url_for("get_user_profile"))
 
 @app.route("/logout")
 def log_out():
@@ -179,7 +218,7 @@ def delete_movie(movie_id):
 
 @app.route("/categories")
 def get_categories():
-    if not session["user"] or not session["is_admin"]:
+    if "user" not in session or not session["is_admin"]:
         abort(404)
     else:
         categories = list(mongo.db.categories.find().sort("category_name", 1))
@@ -188,7 +227,7 @@ def get_categories():
 
 @app.route("/category/add", methods=["GET", "POST"])
 def add_category():
-    if not session["user"] or session["user"] != ADMIN_USER_NAME:
+    if "user" not in session or not session["is_admin"]:
         abort(404)
     else:
         if request.method == "POST":
@@ -210,7 +249,7 @@ def add_category():
 
 @app.route("/category/<category_id>/delete")
 def delete_category(category_id):
-    if not session["user"] or session["user"] != ADMIN_USER_NAME:
+    if "user" not in session or not session["is_admin"]:
         abort(404)
     else:
         mongo.db.categories.remove({"_id": ObjectId(category_id)})
