@@ -208,13 +208,16 @@ def edit_movie(movie_id):
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_movie.html", movie=movie, categories=categories)
 
+@app.route("/movie/<movie_id>", methods=['GET'])
+def single_movie_page(movie_id):
+    movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
+    return render_template("movie.html", movie=movie)
 
 @app.route("/movie/<movie_id>/delete")
 def delete_movie(movie_id):
     mongo.db.movies.remove({"_id": ObjectId(movie_id)})
     flash("Movie is successfully deleted")
-    return redirect(request.referrer)
-
+    return redirect(url_for("movie_page"))
 
 @app.route("/categories")
 def get_categories():
