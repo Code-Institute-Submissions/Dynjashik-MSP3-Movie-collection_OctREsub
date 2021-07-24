@@ -34,7 +34,6 @@
                         <a href="" class="modal-close btn cyan lighten-1 black-text">No</a>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
@@ -54,22 +53,22 @@
                         <img class="activator" src="{{ movie.movie_image }}" alt="movie_image">
                         {% endif %}
                     </div>
-                    <a class="btn-floating halfway-fab waves-effect waves-light cyan" href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i class="material-icons">open_in_new</i></a>
+                    <a class="btn-floating halfway-fab waves-effect waves-light cyan darken-1" href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i class="material-icons">open_in_new</i></a>
                 </div>
                 <div class="card-content card-name">
                     <span class="card-title title-bottom activator">{{ movie.movie_name }}</span>
                 </div>
                 <div class="card-reveal card-text">
-                    <span class="card-title"><i class="material-icons right">close</i>
-                        <strong><a href="{{ movie.movie_link }}" target="_blank">{{ movie.movie_name }}</a></strong> <br><br>
+                    <div class="card-title"><i class="material-icons right">close</i>
+                        <strong><a href="{{ movie.movie_link }}" target="_blank" rel="noopener noreferrer">{{ movie.movie_name }}</a></strong> <br><br>
                         <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i> {{ movie.category_name }}</p>
                         <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i> {{ movie.year }}</p>
                         <p class="card-reveal-info"> <i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
                         <p class="card-reveal-info"><i class="fas fa-book prefix cyan-text lighten-1"></i> 
-                                                    <a href="{{ movie.book_link }} " class="collection-item" target="_blank">Book link</a></p>
+                                                    <a href="{{ movie.book_link }} " class="collection-item" rel="noopener noreferrer">Book link</a></p>
                         <p class="card-reveal-description">{{ movie.movie_description }}</p>
                         <p class="card-reveal-info"><em>added by: {{ movie.created_by }}</em></p>
-                    </span>
+                        </div>
                 </div>
             </li>  
             {% endfor %}

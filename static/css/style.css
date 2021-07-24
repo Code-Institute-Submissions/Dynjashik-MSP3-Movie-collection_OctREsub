@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons&display=swap);
 
 body {
     background-color: white;
@@ -123,7 +123,6 @@ body {
 
 .card-reveal-description{
     font-size: 16px;
-    font-family: Helvetica, sans-serif;
     margin: 10px 0 10px 0;
 }
 

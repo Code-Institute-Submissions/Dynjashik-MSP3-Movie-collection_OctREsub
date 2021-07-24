@@ -36,8 +36,16 @@
             <p ><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i> {{ movie.category_name }}</p>
             <p><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i> {{ movie.year }}</p>
             <p><i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
-            <p><i class="fas fa-book prefix cyan-text lighten-1"></i> 
-            <a href="{{ movie.book_link }} " class="collection-item" target="_blank">Book link</a></p>
+            <p>
+                <i class="fas fa-book prefix cyan-text lighten-1"></i> 
+                <a href="{{ movie.book_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Book link</a>
+            </p>
+            {% if movie.movie_link %}
+            <p class="card-reveal-info">
+                <i class="fas fa-film prefix cyan-text lighten-1"></i> 
+                <a href="{{ movie.movie_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Movie link</a>
+            </p>
+            {% endif %}
             <p >{{ movie.movie_description }}</p>
             <p><em>added by: {{ movie.created_by }}</em></p>
         </div>
