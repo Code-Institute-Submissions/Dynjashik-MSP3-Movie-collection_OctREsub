@@ -7,6 +7,11 @@
 </div>
 
 <main class="container">
+    <h3 style="text-decoration: underline" class="center-align">Welcome to Movies by books</h3>
+    <p class="center-align">Here you can get and share movies based on your favourite books and get links to find them. <br>
+        To add movies and get access to your personal information please <a href="{{ url_for('sign_up') }}">Sign Up</a><br>
+        Already registered? <a href="{{ url_for('sign_in') }}">Sign In</a> 
+    </p>
     <h3 class="recently-added center-align">Recently added movies</h3>
     <!--Movie cards-->
     
@@ -14,16 +19,30 @@
         <ul class="movie-cards">
             {% for movie in recently_added_movies %}
             <li class="card-sizing card card-background center-align">
-                <a href="{{url_for('single_movie_page', movie_id=movie._id)}}"" class="card-link"></a>
-                <div class="card-image waves-effect waves-block waves-light card-overflow">
-                    {% if not movie.movie_image or movie.movie_image == "" %}
-                    <img class="activator" src="{{ url_for('static', filename='images/movie-icon.png') }}">
-                    {% else %}
-                    <img class="activator" src="{{ movie.movie_image }}">
-                    {% endif %}
+                <div class="card-image-with-button">
+                    <div class="card-image card-image-grid waves-effect waves-block waves-light">
+                        {% if not movie.movie_image or movie.movie_image == "" %}
+                        <img class="activator" src="{{ url_for('static', filename='images/movie_icon.jpg') }} " alt="movie_image">
+                        {% else %}
+                        <img class="activator" src="{{ movie.movie_image }}" alt="movie_image">
+                        {% endif %}
+                    </div>
+                    <a class="btn-floating halfway-fab waves-effect waves-light cyan" href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i class="material-icons">open_in_new</i></a>
                 </div>
                 <div class="card-content card-name">
                     <span class="card-title title-bottom activator">{{ movie.movie_name }}</span>
+                </div>
+                <div class="card-reveal card-text">
+                    <span class="card-title"><i class="material-icons right">close</i>
+                        <strong><a href="{{ movie.movie_link }}" target="_blank">{{ movie.movie_name }}</a></strong> <br><br>
+                        <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i> {{ movie.category_name }}</p>
+                        <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i> {{ movie.year }}</p>
+                        <p class="card-reveal-info"> <i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
+                        <p class="card-reveal-info"><i class="fas fa-book prefix cyan-text lighten-1"></i> 
+                                                    <a href="{{ movie.book_link }} " class="collection-item" target="_blank">Book link</a></p>
+                        <p class="card-reveal-description">{{ movie.movie_description }}</p>
+                        <p class="card-reveal-info"><em>added by: {{ movie.created_by }}</em></p>
+                    </span>
                 </div>
             </li>  
             {% endfor %}
