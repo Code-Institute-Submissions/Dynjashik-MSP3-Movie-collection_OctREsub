@@ -8,7 +8,7 @@
         <div class="card-sizing card">
             <div class="card-image">
                 {% if not movie.movie_image or movie.movie_image == "" %}
-                <img class="activator" src="{{ url_for('static', filename='images/movie-icon.png') }}">
+                <img class="activator" src="{{ url_for('static', filename='images/movie_icon.jpg') }}">
                 {% else %}
                 <img class="activator" src="{{ movie.movie_image }}">
                 {% endif %}
@@ -23,8 +23,8 @@
                         <h5>Are you sure want to delete this movie?</h5>
                         </div>
                         <div class="modal-footer">
-                        <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="modal-close btn cyan lighten-1 black-text">Yes</a>
-                        <a class="modal-close btn red lighten-1 black-text">No</a>
+                        <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="modal-close btn red lighten-1 black-text">Yes</a>
+                        <a class="modal-close btn cyan lighten-1 black-text">No</a>
                         </div>
                     </div>
                 </div>
