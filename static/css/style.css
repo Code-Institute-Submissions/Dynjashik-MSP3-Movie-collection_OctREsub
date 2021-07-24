@@ -75,6 +75,11 @@ body {
     align-items: center;
 }
 
+.card-image-grid{
+    height: 350px;
+    overflow: hidden
+}
+
 .card-image > img {
     object-fit: cover;
 }
@@ -122,8 +127,8 @@ body {
     margin: 10px 0 10px 0;
 }
 
-.card-overflow{
-    overflow: inherit;
+.card-image-with-button{
+    position: relative;
 }
 
 .btn-delete{
@@ -247,4 +252,10 @@ body {
         padding: 0 12px;
     }
 
+}
+
+@media only screen and (max-width: 420px){
+    h3 {
+        font-size: 1.5rem;
+    }
 }
