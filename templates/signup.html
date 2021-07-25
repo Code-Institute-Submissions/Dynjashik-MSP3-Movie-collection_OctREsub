@@ -4,14 +4,13 @@
     <h3 class="center-align">Sign Up</h3>
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('sign_up') }}">
-
             <!-- username -->
             <div class="row">
-                <div class="input-field  col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="username" name="username" type="text" minlength="3"
-                        maxlength="10" pattern="^[a-zA-Z0-9]{3,10}$" class="validate" required>
-                <label for="username">Username</label>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" name="username" type="text" minlength="3" 
+                            maxlength="10" pattern="^[a-zA-Z0-9]{3,10}$" class="validate" required />
+                    <label for="username">Username</label>
                 </div>
             </div>
 
@@ -19,7 +18,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
-                    <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="validate" required>
+                    <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="validate" required />
                     <label for="email">Email</label>
                 </div>
             </div>
@@ -28,16 +27,15 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">vpn_key</i>
-                    <input id="password" name="password" type="password" minlength="3"
-                        maxlength="16" pattern="^[a-zA-Z0-9]{3,16}$" class="validate" required>
+                    <input id="password" name="password" type="password" minlength="3" 
+                            maxlength="16" pattern="^[a-zA-Z0-9]{3,16}$" class="validate" required />
                     <label for="password">Password</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">replay</i>
-                    <input id="password2" type="password" minlength="3"
-                        maxlength="16" pattern="^[a-zA-Z0-9]{3,16}$" class="validate" required>
+                    <input id="password2" type="password" minlength="3" maxlength="16" pattern="^[a-zA-Z0-9]{3,16}$" class="validate" required />
                     <label for="password2">Confirm Password</label>
                 </div>
             </div>
