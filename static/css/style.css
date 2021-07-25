@@ -41,9 +41,7 @@ body {
 
 .search-input {
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-align: stretch;
     align-items: stretch;
     width: 100%;
     margin-bottom: 20px;

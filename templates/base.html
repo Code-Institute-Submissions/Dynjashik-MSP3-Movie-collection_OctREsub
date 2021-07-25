@@ -34,9 +34,9 @@
                         {% endif %}
                     </ul>
                     <a href="{{ url_for('home_page') }}" class="center brand-logo">
-                        <img src="../static/images/logo-icon.png" alt="Website logo">
+                        <img src="../../static/images/logo-icon.png" alt="Website logo">
                     </a>
-                    <a href="#" data-target="mobile-demo" name="main-menu-mobile" class="sidenav-trigger right"><i class="fas fa-bars black-text"></i></a>
+                    <a href="#" data-target="mobile-demo" id="main-menu-mobile" class="sidenav-trigger right"><i class="fas fa-bars black-text"></i></a>
                     {% if session.user %}
                     <div class="username">{{session.user}}</div>
                     {% endif %}
@@ -62,23 +62,21 @@
           
 	</header>
 
-    <section>
     <!-- flash messages -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div id="modal" class="modal flash-modal">
-                        <div class="modal-content flash-modal-content">
-                          <p>{{ message }}</p>
-                        </div>
-                        <div class="modal-footer flash-modal-button">
-                          <a class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
-                        </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div id="modal" class="modal flash-modal">
+                    <div class="modal-content flash-modal-content">
+                        <p>{{ message }}</p>
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </section>
+                    <div class="modal-footer flash-modal-button">
+                        <a class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     {% block content %}
     {% endblock %}
