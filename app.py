@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 if os.path.exists("env.py"):
     import env
+import re
 
 
 app = Flask(__name__)
@@ -68,24 +69,49 @@ def sign_up():
 
     if request.method == "POST":
         username_input = request.form.get("username").lower()
-        # check if username already exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": username_input})
+        email_input = request.form.get("email").lower()
+        password_input = request.form.get("password")
 
+        flash_error = False
+        # check if username already exists in db
+        existing_user = mongo.db.users.find_one({"username": username_input})
         if existing_user:
             flash("Username " + existing_user["username"] + " already exists")
             return redirect(url_for("sign_up"))
 
-        register = {
-            "username": username_input,
-            "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password"))
-        }
-        mongo.db.users.insert_one(register)
+        # validate username
+        if not username_input or len(username_input) < 3:
+            flash_error = True
+            flash("Username must be at least 3 characters long")
 
-        session['registered_user'] = username_input
-        flash("Sign up successful!")
-        return redirect(url_for("sign_in"))
+        # validate email
+        email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        valid_email = re.search(email_regexp, email_input)
+        if not valid_email:
+            flash_error = True
+            flash("Not valid email")
+
+        # validate password
+        password_regexp = "^[a-zA-Z0-9]{5,16}$"
+        valid_password = re.search(password_regexp, password_input)
+        if not valid_password:
+            flash_error = True
+            flash("Password must be between 5 and 16 characters and consists of letters and numbers")
+
+        # save new usere to db or throw error(s)
+        if flash_error:
+            return redirect(url_for("sign_up"))
+        else:
+            register = {
+                "username": username_input,
+                "email": email_input,
+                "password": generate_password_hash(password_input)
+            }
+            mongo.db.users.insert_one(register)
+
+            session['registered_user'] = username_input
+            flash("Sign up successful!")
+            return redirect(url_for("sign_in"))
 
     return render_template("signup.html")
 
