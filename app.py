@@ -121,10 +121,12 @@ def sign_in():
     # check if user already logged in, then redirect to home page
     if "user" in session:
         return redirect(url_for("home_page"))
+
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
+
         if existing_user:
             # validate password
             password_regexp = "^[a-zA-Z0-9]{5,16}$"
@@ -132,6 +134,7 @@ def sign_in():
             if not valid_password:
                 flash("Password must be between 5 and 16 characters and consist of letters and numbers")
                 return redirect(url_for("sign_in"))
+
             # ensure hashed password matches user input
             if check_password_hash(existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
@@ -141,11 +144,11 @@ def sign_in():
                 # invalid password match
                 flash("Invalid password")
                 return redirect(url_for("sign_in"))
-
         else:
             # username not found
             flash("Username not found")
             return redirect(url_for("sign_in"))
+
     return render_template("signin.html")
 
 
@@ -164,27 +167,43 @@ def update_profile():
     if "user" not in session:
         abort(404)
 
-    if not (request.form.get("email") and (request.form.get("username") or session["is_admin"])):
-        flash("Please fill in all the required fields")
+    username_input = ""
+    if session["is_admin"]:
+        username_input = ADMIN_USER_NAME
+    elif request.form.get("username"):
+        username_input = request.form.get("username").lower()
+    email_input = request.form.get("email").lower()
+    flash_error = False
+
+    # validate username
+    if len(username_input) < 3:
+        flash_error = True
+        flash("Username must be at least 3 characters long")
+
+    # validate if username havent changed to admin username
+    if not session["is_admin"] and username_input == ADMIN_USER_NAME:
+        flash_error = True
+        flash("Please pick another username")
+
+    # validate email
+    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+    valid_email = re.search(email_regexp, email_input)
+    if not valid_email:
+        flash_error = True
+        flash("Not valid email")
+
+    if flash_error:
+        redirect(url_for("get_user_profile"))
     else:
         if request.method == "POST":
-            user_updated = False
-            if request.form.get("email"):
-                new_email = request.form.get("email").lower()
                 mongo.db.users.update({"username": session["user"]},
-                                      {"$set": {"email": new_email}})
-                user_updated = True
-            if request.form.get("username"):
-                new_username = request.form.get("username").lower()
-                if not session["is_admin"] and new_username != ADMIN_USER_NAME:
-                    mongo.db.users.update({"username": session["user"]},
-                                          {"$set": {"username": new_username}})
-                    mongo.db.movies.update({"created_by": session["user"]},
-                                          {"$set": {"created_by": new_username}},
-                                        multi=True)
-                    session["user"] = new_username
-                    user_updated = True
-            if user_updated:
+                                      {"$set": {"email": email_input}})
+                mongo.db.users.update({"username": session["user"]},
+                                        {"$set": {"username": username_input}})
+                mongo.db.movies.update({"created_by": session["user"]},
+                                       {"$set": {"created_by": username_input}},
+                                       multi=True)
+                session["user"] = username_input
                 flash("Username information is successfully updated")
     return redirect(url_for("get_user_profile"))
 

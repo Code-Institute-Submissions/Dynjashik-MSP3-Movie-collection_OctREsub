@@ -10,7 +10,7 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
                     <input id="username" name="username" type="text" minlength="3" {% if session['is_admin'] %} disabled {% endif %} 
-                        maxlength="10" value="{{ user_data.username }}" pattern="^[a-zA-Z0-9]{3,10}$" class="validate" required>
+                        value="{{ user_data.username }}" class="validate" required>
                     <label for="username">Username</label>
                 </div>
             </div>
