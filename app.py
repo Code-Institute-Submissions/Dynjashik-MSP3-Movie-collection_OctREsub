@@ -22,6 +22,7 @@ ADMIN_USER_NAME = 'admin'
 mongo = PyMongo(app)
 
 
+# check if user is admin and set parameter in session before each request
 @app.before_request
 def before_request():
     if "user" in session:
@@ -80,7 +81,7 @@ def sign_up():
             return redirect(url_for("sign_up"))
 
         # validate username
-        if not username_input or len(username_input) < 3:
+        if len(username_input) < 4:
             flash_error = True
             flash("Username must be at least 3 characters long")
 
@@ -335,6 +336,7 @@ def delete_category(category_id):
 
 def validate_movie(movie):
     is_valid = True
+
     # validate movie name
     if len(movie["movie_name"]) < 1:
         is_valid = False
