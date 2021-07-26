@@ -193,7 +193,7 @@ def update_profile():
         flash("Not valid email")
 
     if flash_error:
-        redirect(url_for("get_user_profile"))
+        return redirect(url_for("get_user_profile"))
     else:
         if request.method == "POST":
                 mongo.db.users.update({"username": session["user"]},
@@ -217,31 +217,38 @@ def log_out():
 
 @app.route("/movie/add", methods=["GET", "POST"])
 def add_movie():
+    categories = mongo.db.categories.find().sort("category_name", 1)
+
     if request.method == "POST":
         movie = {
-            "movie_name": request.form.get("movie_name"),
-            "movie_link": request.form.get("movie_link"),
-            "category_name": request.form.get("category_name"),
-            "year": request.form.get("year"),
-            "movie_duration": request.form.get("movie_duration"),
-            "movie_description": request.form.get("movie_description"),
-            "book_link": request.form.get("book_link"),
-            "movie_image": request.form.get("movie_image"),
-            "created_by": session["user"],
-            "time_added": datetime.now()
+                "movie_name": request.form.get("movie_name"),
+                "category_name": request.form.get("category_name"),
+                "year": request.form.get("year"),
+                "movie_duration": request.form.get("movie_duration"),
+                "movie_description": request.form.get("movie_description"),
+                "movie_link": request.form.get("movie_link"),
+                "book_link": request.form.get("book_link"),
+                "movie_image": request.form.get("movie_image")
         }
-        mongo.db.movies.insert_one(movie)
-        flash("Movie is successfully added!")
-        return redirect(url_for("movie_page"))
+        movie_is_valid = validate_movie(movie)
 
-    categories = mongo.db.categories.find().sort("category_name", 1)
+        if movie_is_valid:
+            movie["created_by"] = session["user"]
+            movie["time_added"] = datetime.now()
+            mongo.db.movies.insert_one(movie)
+            flash("Movie " + movie["movie_name"] + "is successfully added!")
+            return redirect(url_for("movie_page"))
+        else:
+            return redirect(url_for("add_movie", categories=categories))
+
     return render_template("add_movie.html", categories=categories)
 
 
 @app.route("/movie/<movie_id>/edit", methods=["GET", "POST"])
 def edit_movie(movie_id):
+    movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
     if request.method == "POST":
-        submit = {
+        submit_movie = {
             "movie_name": request.form.get("movie_name"),
             "movie_link": request.form.get("movie_link"),
             "category_name": request.form.get("category_name"),
@@ -251,10 +258,12 @@ def edit_movie(movie_id):
             "book_link": request.form.get("book_link"),
             "movie_image": request.form.get("movie_image"),
         }
-        mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit)
-        flash("Movie is successfully updated")
+        movie_is_valid = validate_movie(submit_movie)
+        if movie_is_valid:
+            mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit_movie)
+            flash("Movie " + movie["movie_name"] + " is successfully updated")
+            return redirect(url_for("single_movie_page", movie_id=movie_id))
 
-    movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_movie.html", movie=movie, categories=categories)
 
@@ -309,6 +318,45 @@ def delete_category(category_id):
         flash("Category is successfully deleted")
     return redirect(url_for("get_categories"))
 
+
+def validate_movie(movie):
+    is_valid = True
+    # validate movie name
+    if len(movie["movie_name"]) < 1:
+        is_valid = False
+        flash("Movie name should be at least 1 character long")
+
+    # validate category
+    if not movie["category_name"]:
+        is_valid = False
+        flash("Category is not selected")
+
+    # validate year
+    if not (movie["year"].isnumeric() and 1899 < int(movie["year"]) < 2101):
+        is_valid = False
+        flash("Year must be a number between 1990 and 2100")
+
+    # validate duration
+    if not (movie["movie_duration"].isnumeric() and 0 < int(movie["movie_duration"])):
+        is_valid = False
+        flash("Duration must be a positive number")
+
+    # validate description
+    if len(movie["movie_description"]) < 11:
+        is_valid = False
+        flash("Description must be at least 10 characters")
+
+    # validate book link
+    if not movie["book_link"]:
+        is_valid = False
+        flash("Book link must be specified")
+
+    # validate movie link
+    if not movie["movie_link"]:
+        is_valid = False
+        flash("Movie link must be specified")
+
+    return is_valid
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
