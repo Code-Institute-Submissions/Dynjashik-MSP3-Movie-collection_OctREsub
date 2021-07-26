@@ -96,7 +96,7 @@ def sign_up():
         valid_password = re.search(password_regexp, password_input)
         if not valid_password:
             flash_error = True
-            flash("Password must be between 5 and 16 characters and consists of letters and numbers")
+            flash("Password must be between 5 and 16 characters and consist of letters and numbers")
 
         # save new usere to db or throw error(s)
         if flash_error:
@@ -126,6 +126,12 @@ def sign_in():
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
         if existing_user:
+            # validate password
+            password_regexp = "^[a-zA-Z0-9]{5,16}$"
+            valid_password = re.search(password_regexp, request.form.get("password"))
+            if not valid_password:
+                flash("Password must be between 5 and 16 characters and consist of letters and numbers")
+                return redirect(url_for("sign_in"))
             # ensure hashed password matches user input
             if check_password_hash(existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
@@ -137,10 +143,9 @@ def sign_in():
                 return redirect(url_for("sign_in"))
 
         else:
-            # username doesn't exist
-            flash("Username doesn't exist")
+            # username not found
+            flash("Username not found")
             return redirect(url_for("sign_in"))
-
     return render_template("signin.html")
 
 
