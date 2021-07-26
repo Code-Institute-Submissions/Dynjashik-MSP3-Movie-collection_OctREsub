@@ -246,37 +246,49 @@ def add_movie():
 
 @app.route("/movie/<movie_id>/edit", methods=["GET", "POST"])
 def edit_movie(movie_id):
-    movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
-    if request.method == "POST":
-        submit_movie = {
-            "movie_name": request.form.get("movie_name"),
-            "movie_link": request.form.get("movie_link"),
-            "category_name": request.form.get("category_name"),
-            "year": request.form.get("year"),
-            "movie_duration": request.form.get("movie_duration"),
-            "movie_description": request.form.get("movie_description"),
-            "book_link": request.form.get("book_link"),
-            "movie_image": request.form.get("movie_image"),
-        }
-        movie_is_valid = validate_movie(submit_movie)
-        if movie_is_valid:
-            mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit_movie)
-            flash("Movie " + movie["movie_name"] + " is successfully updated")
-            return redirect(url_for("single_movie_page", movie_id=movie_id))
+    try:
+        movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
+        if request.method == "POST":
+            submit_movie = {
+                "movie_name": request.form.get("movie_name"),
+                "movie_link": request.form.get("movie_link"),
+                "category_name": request.form.get("category_name"),
+                "year": request.form.get("year"),
+                "movie_duration": request.form.get("movie_duration"),
+                "movie_description": request.form.get("movie_description"),
+                "book_link": request.form.get("book_link"),
+                "movie_image": request.form.get("movie_image"),
+            }
+            movie_is_valid = validate_movie(submit_movie)
+            if movie_is_valid:
+                mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit_movie)
+                flash("Movie " + movie["movie_name"] + " is successfully updated")
+                return redirect(url_for("single_movie_page", movie_id=movie_id))
 
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("edit_movie.html", movie=movie, categories=categories)
+        categories = mongo.db.categories.find().sort("category_name", 1)
+        return render_template("edit_movie.html", movie=movie, categories=categories)
+    except:
+        return redirect(url_for("home_page"))
+
 
 @app.route("/movie/<movie_id>", methods=['GET'])
 def single_movie_page(movie_id):
-    movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
-    return render_template("movie.html", movie=movie)
+    try:
+        movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
+        return render_template("movie.html", movie=movie)
+    except:
+        return redirect(url_for("home_page"))
+
 
 @app.route("/movie/<movie_id>/delete")
 def delete_movie(movie_id):
-    mongo.db.movies.remove({"_id": ObjectId(movie_id)})
-    flash("Movie is successfully deleted")
-    return redirect(url_for("movie_page"))
+    try:
+        mongo.db.movies.remove({"_id": ObjectId(movie_id)})
+        flash("Movie is successfully deleted")
+        return redirect(url_for("movie_page"))
+    except:
+        return redirect(url_for("home_page"))
+
 
 @app.route("/categories")
 def get_categories():
@@ -313,10 +325,12 @@ def add_category():
 def delete_category(category_id):
     if "user" not in session or not session["is_admin"]:
         abort(404)
-    else:
+
+    try:
         mongo.db.categories.remove({"_id": ObjectId(category_id)})
         flash("Category is successfully deleted")
-    return redirect(url_for("get_categories"))
+    except:
+        return redirect(url_for("get_categories"))
 
 
 def validate_movie(movie):
