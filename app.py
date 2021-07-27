@@ -27,8 +27,10 @@ mongo = PyMongo(app)
 def before_request():
     if "user" in session:
         session["is_admin"] = session["user"] == ADMIN_USER_NAME
+        session["user_logged_in"] = True
     else:
         session["is_admin"] = False
+        session["user_logged_in"] = False
 
 
 @app.route("/")
@@ -65,7 +67,7 @@ def search():
 @app.route("/signup", methods=["GET", "POST"])
 def sign_up():
     # check if user already logged in, then redirect to home page
-    if "user" in session:
+    if session["user_logged_in"]:
         return redirect(url_for("home_page"))
 
     if request.method == "POST":
@@ -73,34 +75,35 @@ def sign_up():
         email_input = request.form.get("email").lower()
         password_input = request.form.get("password")
 
-        flash_error = False
         # check if username already exists in db
         existing_user = mongo.db.users.find_one({"username": username_input})
         if existing_user:
             flash("Username " + existing_user["username"] + " already exists")
             return redirect(url_for("sign_up"))
+        has_error = False
+        error_msg = []
 
         # validate username
         if len(username_input) < 4:
-            flash_error = True
-            flash("Username must be at least 3 characters long")
+            has_error = True
+            error_msg.append("Username must be at least 3 characters long")
 
         # validate email
-        email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        valid_email = re.search(email_regexp, email_input)
-        if not valid_email:
-            flash_error = True
-            flash("Not valid email")
+        is_email_valid, email_error_message = validate_email_and_return_error_msg(email_input)
+        if not is_email_valid:
+            has_error = True
+            error_msg.append(email_error_message)
 
         # validate password
         password_regexp = "^[a-zA-Z0-9]{5,16}$"
         valid_password = re.search(password_regexp, password_input)
         if not valid_password:
-            flash_error = True
-            flash("Password must be between 5 and 16 characters and consist of letters and numbers")
+            has_error = True
+            error_msg.append("Password must be between 5 and 16 characters and consist of letters and numbers")
 
         # save new usere to db or throw error(s)
-        if flash_error:
+        if has_error:
+            flash(error_msg)
             return redirect(url_for("sign_up"))
         else:
             register = {
@@ -120,7 +123,7 @@ def sign_up():
 @app.route("/signin", methods=["GET", "POST"])
 def sign_in():
     # check if user already logged in, then redirect to home page
-    if "user" in session:
+    if session["user_logged_in"]:
         return redirect(url_for("home_page"))
 
     if request.method == "POST":
@@ -133,21 +136,21 @@ def sign_in():
             password_regexp = "^[a-zA-Z0-9]{5,16}$"
             valid_password = re.search(password_regexp, request.form.get("password"))
             if not valid_password:
-                flash("Password must be between 5 and 16 characters and consist of letters and numbers")
+                flash(["Password must be between 5 and 16 characters and consist of letters and numbers"])
                 return redirect(url_for("sign_in"))
 
             # ensure hashed password matches user input
             if check_password_hash(existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}!".format(request.form.get("username")))
+                    flash(["Welcome, {}!".format(request.form.get("username"))])
                     return redirect(url_for("home_page"))
             else:
                 # invalid password match
-                flash("Invalid password")
+                flash(["Invalid password"])
                 return redirect(url_for("sign_in"))
         else:
             # username not found
-            flash("Username not found")
+            flash(["Username not found"])
             return redirect(url_for("sign_in"))
 
     return render_template("signin.html")
@@ -155,17 +158,17 @@ def sign_in():
 
 @app.route("/profile")
 def get_user_profile():
-    if "user" not in session:
-        abort(404)
+    if not session["user_logged_in"]:
+        return redirect(url_for("sign_in"))
     else:
         user_data = mongo.db.users.find_one({'username': session["user"]})
         user_movies = list(mongo.db.movies.find({'created_by': session["user"]}))
         return render_template("profile.html", user_data=user_data, user_movies=user_movies)
 
 
-@app.route("/update_profile", methods=["POST"])
+@app.route("/profile/update", methods=["POST"])
 def update_profile():
-    if "user" not in session:
+    if not session["user_logged_in"]:
         abort(404)
 
     username_input = ""
@@ -174,45 +177,48 @@ def update_profile():
     elif request.form.get("username"):
         username_input = request.form.get("username").lower()
     email_input = request.form.get("email").lower()
-    flash_error = False
+    has_error = False
+    error_msg = []
 
     # validate username
-    if len(username_input) < 3:
-        flash_error = True
-        flash("Username must be at least 3 characters long")
+    is_username_valid, username_error_message = validate_username_and_return_error_msg(username_input)
+    if not is_username_valid:
+        has_error = True
+        error_msg.append(username_error_message)
 
     # validate if username havent changed to admin username
     if not session["is_admin"] and username_input == ADMIN_USER_NAME:
-        flash_error = True
-        flash("Please pick another username")
+        has_error = True
+        error_msg.append("Please pick another username")
 
     # validate email
-    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-    valid_email = re.search(email_regexp, email_input)
-    if not valid_email:
-        flash_error = True
-        flash("Not valid email")
+    is_email_valid, email_error_message = validate_email_and_return_error_msg(email_input)
+    if not is_email_valid:
+        has_error = True
+        error_msg.append(email_error_message)
 
-    if flash_error:
+    if has_error:
+        flash(error_msg)
         return redirect(url_for("get_user_profile"))
     else:
-        if request.method == "POST":
-                mongo.db.users.update({"username": session["user"]},
-                                      {"$set": {"email": email_input}})
-                mongo.db.users.update({"username": session["user"]},
-                                        {"$set": {"username": username_input}})
-                mongo.db.movies.update({"created_by": session["user"]},
-                                       {"$set": {"created_by": username_input}},
-                                       multi=True)
-                session["user"] = username_input
-                flash("Username information is successfully updated")
+        mongo.db.users.update({"username": session["user"]},
+                              {"$set": {"email": email_input}})
+        mongo.db.users.update({"username": session["user"]},
+                              {"$set": {"username": username_input}})
+        mongo.db.movies.update({"created_by": session["user"]},
+                               {"$set": {"created_by": username_input}},
+                               multi=True)
+        session["user"] = username_input
+        flash(["Username information is successfully updated"])
     return redirect(url_for("get_user_profile"))
+
 
 @app.route("/logout")
 def log_out():
     # remove user from session cookie
-    flash("You have been logged out")
+    flash(["You have been logged out"])
     session.pop("user")
+    session["is_admin"] = False
     return redirect(url_for("sign_in"))
 
 
@@ -231,15 +237,16 @@ def add_movie():
                 "book_link": request.form.get("book_link"),
                 "movie_image": request.form.get("movie_image")
         }
-        movie_is_valid = validate_movie(movie)
+        movie_is_valid, error_msg = validate_movie(movie)
 
         if movie_is_valid:
             movie["created_by"] = session["user"]
             movie["time_added"] = datetime.now()
             mongo.db.movies.insert_one(movie)
-            flash("Movie " + movie["movie_name"] + "is successfully added!")
+            flash(["Movie " + movie["movie_name"] + "is successfully added!"])
             return redirect(url_for("movie_page"))
         else:
+            flash(error_msg)
             return redirect(url_for("add_movie", categories=categories))
 
     return render_template("add_movie.html", categories=categories)
@@ -260,12 +267,15 @@ def edit_movie(movie_id):
                 "book_link": request.form.get("book_link"),
                 "movie_image": request.form.get("movie_image"),
             }
-            movie_is_valid = validate_movie(submit_movie)
+            movie_is_valid, error_msg = validate_movie(submit_movie)
             if movie_is_valid:
+                movie["created_by"] = session["user"]
+                movie["time_added"] = movie.time_added
                 mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit_movie)
-                flash("Movie " + movie["movie_name"] + " is successfully updated")
+                flash(["Movie " + movie["movie_name"] + " is successfully updated"])
                 return redirect(url_for("single_movie_page", movie_id=movie_id))
-
+            else:
+                flash(error_msg)
         categories = mongo.db.categories.find().sort("category_name", 1)
         return render_template("edit_movie.html", movie=movie, categories=categories)
     except:
@@ -285,7 +295,7 @@ def single_movie_page(movie_id):
 def delete_movie(movie_id):
     try:
         mongo.db.movies.remove({"_id": ObjectId(movie_id)})
-        flash("Movie is successfully deleted")
+        flash(["Movie is successfully deleted"])
         return redirect(url_for("movie_page"))
     except:
         return redirect(url_for("home_page"))
@@ -293,7 +303,7 @@ def delete_movie(movie_id):
 
 @app.route("/categories")
 def get_categories():
-    if "user" not in session or not session["is_admin"]:
+    if not session["user_logged_in"] or not session["is_admin"]:
         abort(404)
     else:
         categories = list(mongo.db.categories.find().sort("category_name", 1))
@@ -302,7 +312,7 @@ def get_categories():
 
 @app.route("/category/add", methods=["GET", "POST"])
 def add_category():
-    if "user" not in session or not session["is_admin"]:
+    if not session["user_logged_in"] or not session["is_admin"]:
         abort(404)
     else:
         if request.method == "POST":
@@ -316,7 +326,7 @@ def add_category():
                 "category_name": request.form.get("category_name").capitalize()
             }
             mongo.db.categories.insert_one(category_dict)
-            flash("New category is successfully added")
+            flash(["New category is successfully added"])
             return redirect(url_for("get_categories"))
 
         return render_template("add_category.html")
@@ -324,55 +334,72 @@ def add_category():
 
 @app.route("/category/<category_id>/delete")
 def delete_category(category_id):
-    if "user" not in session or not session["is_admin"]:
+    if not session["user_logged_in"] or not session["is_admin"]:
         abort(404)
 
     try:
         mongo.db.categories.remove({"_id": ObjectId(category_id)})
-        flash("Category is successfully deleted")
+        flash(["Category is successfully deleted"])
     except:
         return redirect(url_for("get_categories"))
+
+    return redirect(url_for("get_categories"))
 
 
 def validate_movie(movie):
     is_valid = True
-
+    error_msg = []
     # validate movie name
     if len(movie["movie_name"]) < 1:
         is_valid = False
-        flash("Movie name should be at least 1 character long")
+        error_msg.append("Movie name should be at least 1 character long")
 
     # validate category
     if not movie["category_name"]:
         is_valid = False
-        flash("Category is not selected")
+        error_msg.append("Category is not selected")
 
     # validate year
     if not (movie["year"].isnumeric() and 1899 < int(movie["year"]) < 2101):
         is_valid = False
-        flash("Year must be a number between 1990 and 2100")
+        error_msg.append("Year must be a number between 1990 and 2100")
 
     # validate duration
     if not (movie["movie_duration"].isnumeric() and 0 < int(movie["movie_duration"])):
         is_valid = False
-        flash("Duration must be a positive number")
+        error_msg.append("Duration must be a positive number")
 
     # validate description
     if len(movie["movie_description"]) < 11:
         is_valid = False
-        flash("Description must be at least 10 characters")
+        error_msg.append("Description must be at least 10 characters")
 
     # validate book link
     if not movie["book_link"]:
         is_valid = False
-        flash("Book link must be specified")
+        error_msg.append("Book link must be specified")
 
     # validate movie link
     if not movie["movie_link"]:
         is_valid = False
-        flash("Movie link must be specified")
+        error_msg.append("Movie link must be specified")
 
-    return is_valid
+    return is_valid, error_msg
+
+
+def validate_username_and_return_error_msg(username):
+    if len(username) < 3:
+        return False, "Username must be at least 3 characters long \n"
+    return True, ""
+
+
+def validate_email_and_return_error_msg(email):
+    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+    valid_email = re.search(email_regexp, email)
+    if not valid_email:
+        return False, "Not valid email \n"
+    return True, ""
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
