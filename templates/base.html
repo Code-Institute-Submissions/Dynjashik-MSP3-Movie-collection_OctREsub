@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Movies library that are based on books">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-        integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" type="text/css">
+        integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA=="
+        crossorigin="anonymous" type="text/css" media="print" onload="this.media='all'; this.onload = null">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
@@ -22,7 +23,7 @@
                     <ul class=" left hide-on-med-and-down">
                         <li {% if request.path == url_for('home_page') %}class="active"{% endif %}><a href="{{ url_for('home_page') }}">Home</a></li>
                         <li {% if request.path == url_for('movie_page') %}class="active"{% endif %}><a href="{{ url_for('movie_page') }}">Movies</a></li>
-                        {% if session.user %}
+                        {% if session.user_logged_in %}
                         <li {% if request.path == url_for('add_movie') %}class="active"{% endif %}><a href="{{ url_for('add_movie') }}">Add movie</a></li>
                         <li {% if request.path == url_for('get_user_profile') %}class="active"{% endif %}><a href="{{ url_for('get_user_profile') }}">Profile</a></li>
                         {% if session.is_admin %}
@@ -37,7 +38,7 @@
                         <img src="../../static/images/logo-icon.png" alt="Website logo">
                     </a>
                     <a href="#" data-target="mobile-demo" id="main-menu-mobile" class="sidenav-trigger right"><i class="fas fa-bars black-text"></i></a>
-                    {% if session.user %}
+                    {% if session.user_logged_in %}
                     <div class="username">{{session.user}}</div>
                     {% endif %}
                 </div>
@@ -49,7 +50,7 @@
             <li><div class="username-mobile">{{session.user}}</div></li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
-        {% if session.user %}
+        {% if session.user_logged_in %}
             <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
             <li><a href="{{ url_for('get_user_profile') }}">Profile</a></li>
             {% if session.is_admin %}
@@ -66,10 +67,12 @@
     <!-- flash messages -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            {% for message in messages %}
+            {% for message_list in messages %}
                 <div id="modal" class="modal flash-modal">
                     <div class="modal-content flash-modal-content">
-                        <p>{{ message }}</p>
+                        {% for message in message_list %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
                     </div>
                     <div class="modal-footer flash-modal-button">
                         <a class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
