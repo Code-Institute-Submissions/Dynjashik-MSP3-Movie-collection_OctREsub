@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons&display=swap);
+@import url(https://fonts.googleapis.com/icon?family=Material + Icons&display=swap);
 
 body {
     background-color: white;
@@ -6,11 +6,11 @@ body {
     font-family: Tahoma, Verdana, sans-serif;
 }
 
-.nav-background{
+.nav-background {
     color: black;
-    background-color: #ffa726 ;
+    background-color: #ffa726;
 }
-.nav-background ul a{
+.nav-background ul a {
     color: black;
     font-size: 15px;
 }
@@ -19,7 +19,7 @@ body {
 }
 
 .username {
-    float:right;
+    float: right;
     margin-right: 30px;
     font-weight: bold;
     font-size: 16px;
@@ -81,178 +81,182 @@ body {
     align-items: center;
 }
 
-.card-image-grid{
+.card-image-grid {
     height: 350px;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .card-image > img {
     object-fit: cover;
 }
 
-.movie-cards, .category-cards { 
+.movie-cards,
+.category-cards {
     display: flex;
     flex-flow: wrap;
     width: 100%;
-  }
+}
 
-.background-img{
+.background-img {
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-  }
+}
 
-.background-img img{
+.background-img img {
     flex-shrink: 1;
     min-width: 100%;
-    min-height: 100%
+    min-height: 100%;
 }
 
 /*Movie cards*/
 
-.card-background{
-    margin-left: 0px!important;
+.card-background {
+    margin-left: 0px !important;
 }
 
-.card-background .card-text{
+.card-background .card-text {
     text-align: left;
-    font-size: 18px!important; /*не работает*/
+    font-size: 18px !important; /*не работает*/
     padding: 15px;
 }
 
-.card-reveal-info{
+.card-reveal-info {
     font-size: 16px;
     font-weight: 400;
     margin: 0;
 }
 
-.card-reveal-description{
+.card-reveal-description {
     font-size: 16px;
     margin: 10px 0 10px 0;
 }
 
-.card-image-with-button{
+.card-image-with-button {
     position: relative;
 }
 
-.btn-delete{
-    right: 1px!important;
+.btn-delete {
+    right: 1px !important;
 }
 
-.btn-edit{
-    right: 45px!important;
+.btn-edit {
+    right: 45px !important;
 }
 
-.flash-modal-content{
+.flash-modal-content {
     text-align: center;
 }
 
-.flash-modal-content p{
+.flash-modal-content p {
     margin-bottom: 0px;
     font-size: 18px;
 }
 
-.flash-modal-button{
-    text-align: center!important;
+.flash-modal-button {
+    text-align: center !important;
 }
 
 /*Category buttons*/
-.btn-margin{
+.btn-margin {
     margin: 3px 0px 3px 0;
 }
 
 /*Category cards*/
 
-.category-name{
-    padding: 10px!important;
+.category-name {
+    padding: 10px !important;
 }
 
-.category-name span{
-    margin: 0px!important;
+.category-name span {
+    margin: 0px !important;
 }
 
-.category-action{
-    padding: 10px 0px!important;
+.category-action {
+    padding: 10px 0px !important;
 }
 
-.btn-add{
+.btn-add {
     margin-bottom: 10px;
 }
 
-.user-profile-form{
+.user-profile-form {
     margin: 30px 0 30px 0;
 }
 
-.card-link{position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    display:inline-block;    
-    z-index: 99999;}
-
-.single-movie-container{
+.card-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    z-index: 99999;
 }
 
-.card-sizing{
-    float:left;
+.single-movie-container {
 }
 
-.single-movie-info{
+.card-sizing {
+    float: left;
+}
+
+.single-movie-info {
     padding-top: 5px;
     font-size: 16px;
 }
 
 /*Changing logo size to be in line with nav bar size*/
-@media (min-width: 601px){
+@media (min-width: 601px) {
     .brand-logo img {
         height: 64px;
     }
 
-    .card-sizing{
+    .card-sizing {
         width: 31%;
         margin-right: 2%;
     }
-    .category-sizing{
+    .category-sizing {
         width: 23%;
         margin-right: 2%;
-    }   
+    }
 }
 
-@media (max-width: 992px){
+@media (max-width: 992px) {
     .username {
         display: none;
     }
 }
 
-@media (min-width: 601px) and (max-width: 999px)  {
-    .card-sizing{
+@media (min-width: 601px) and (max-width: 999px) {
+    .card-sizing {
         width: 48%;
         margin-right: 2%;
     }
-    .category-sizing{
+    .category-sizing {
         width: 31%;
         margin-right: 2%;
     }
 
-    #query{
+    #query {
         width: 80%;
     }
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
     .brand-logo img {
         height: 56px;
     }
 
-    .card-sizing, .category-sizing{
+    .card-sizing,
+    .category-sizing {
         width: 100%;
         left: auto;
         right: auto;
     }
 
-    #query{
+    #query {
         width: 80%;
     }
 
@@ -262,10 +266,9 @@ body {
         height: 30px;
         padding: 0 12px;
     }
-
 }
 
-@media only screen and (max-width: 420px){
+@media only screen and (max-width: 420px) {
     h3 {
         font-size: 1.5rem;
     }

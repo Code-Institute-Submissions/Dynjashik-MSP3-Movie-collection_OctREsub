@@ -170,27 +170,27 @@ Python - for writing the scripts to render all the different templates using fla
 ### Frameworks and libraries used:
 
 [MaterializeCSS](https://materializecss.com/about.html)- for creating the responsive structure of the website, layout and design.  
-[Flask](https://flask.palletsprojects.com/en/2.0.x/) - a python web framework. 
+[Flask](https://flask.palletsprojects.com/en/2.0.x/) - a python web framework.   
 [PyMongo](https://pymongo.readthedocs.io/en/stable/) - python tool for use with Mongo DB. 
-[JQuery](https://jquery.com/) - for making the site interactive. 
-[Font Awesome](https://fontawesome.com/) - for using icons. 
-[Google Fonts](https://fonts.google.com/) -  for font of the website. 
-[Balsamiq](https://balsamiq.com/) - for creating the wireframe.
+[JQuery](https://jquery.com/) - for making the site interactive.   
+[Font Awesome](https://fontawesome.com/) - for using icons.  
+[Google Fonts](https://fonts.google.com/) -  for font of the website.  
+[Balsamiq](https://balsamiq.com/) - for creating the wireframe. 
 
 
 ### Tools and Other Resources used:
 
-[Github](https://github.com/) - for version control and store the code for the project. 
-[Gitpod](https://www.gitpod.io/) - for writing the code for the website and push it to Github. 
-[Heroku](https://id.heroku.com/login) – for deployment the project. 
-[Werkzeug](https://werkzeug.palletsprojects.com/en/2.0.x/) - for verifying the hashed password and username. 
-[Dbdiagram](https://dbdiagram.io/home) - tool to draw database relationship diagrams and flow quickly using just keyboard. 
-[Mockup generator](http://techsini.com/multi-mockup/index.php) - for testing responsive website on various devices. 
-[W3 Schools](https://www.w3schools.com/) - for HTML, CSS, JS, Python tips. 
-[Stackoverflow](stackoverflow.com) - for finding answers on questions. 
-[Webformatter](https://webformatter.com) - for beautifying HTML, CSS, Javascript codes.
-[Datetime](https://docs.python.org/3/library/datetime.html#module-datetime) - for manipulating dates and times
-[Regular expression](https://docs.python.org/3/library/re.html)- matching operations similar to those found in Perl
+[Github](https://github.com/) - for version control and store the code for the project.   
+[Gitpod](https://www.gitpod.io/) - for writing the code for the website and push it to Github.    
+[Heroku](https://id.heroku.com/login) – for deployment the project.  
+[Werkzeug](https://werkzeug.palletsprojects.com/en/2.0.x/) - for verifying the hashed password and username.  
+[Dbdiagram](https://dbdiagram.io/home) - tool to draw database relationship diagrams and flow quickly using just keyboard.  
+[Mockup generator](http://techsini.com/multi-mockup/index.php) - for testing responsive website on various devices.  
+[W3 Schools](https://www.w3schools.com/) - for HTML, CSS, JS, Python tips.  
+[Stackoverflow](stackoverflow.com) - for finding answers on questions.  
+[Webformatter](https://webformatter.com) - for beautifying HTML, CSS, Javascript codes. 
+[Datetime](https://docs.python.org/3/library/datetime.html#module-datetime) - for manipulating dates and times. 
+[Regular expression](https://docs.python.org/3/library/re.html)- matching operations similar to those found in Perl. 
 
 ### Codes used:
 
@@ -265,7 +265,7 @@ Lighthouse testing was made in Chrome browser developer tools. 
 ![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Lighthouse_desktop.png)
 
 * Mobile Lighthouse Report:  
-![img]()
+![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Lighthouse_mobile.png)
 After testing the website with Mobile Lighthouse it was made improvement in CSS style to load CSS asynchronously.
 
 The site was tested across different browsers and screen sized to validate responsiveness and browser compatibility.: Chrome, Internet Explorer, Safari, Firefox, UC Browser, Opera and Samsung Internet. It was also tested on mobile devices such as: iPhone Xs, iPhone 7, iPhone 11, Xiaomi Redmi Note 9. 
