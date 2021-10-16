@@ -1,14 +1,14 @@
 import os
+import re
+from datetime import datetime
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for, abort)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 if os.path.exists("env.py"):
     import env
-import re
 
 
 app = Flask(__name__)
@@ -78,7 +78,7 @@ def sign_up():
         # check if username already exists in db
         existing_user = mongo.db.users.find_one({"username": username_input})
         if existing_user:
-            flash("Username " + existing_user["username"] + " already exists")
+            flash(["Username " + existing_user["username"] + " " + " already exists"])
             return redirect(url_for("sign_up"))
         has_error = False
         error_msg = []
@@ -114,7 +114,7 @@ def sign_up():
             mongo.db.users.insert_one(register)
 
             session['registered_user'] = username_input
-            flash("Sign up successful!")
+            flash(["Sign up successful!"])
             return redirect(url_for("sign_in"))
 
     return render_template("signup.html")
@@ -141,9 +141,9 @@ def sign_in():
 
             # ensure hashed password matches user input
             if check_password_hash(existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash(["Welcome, {}!".format(request.form.get("username"))])
-                    return redirect(url_for("home_page"))
+                session["user"] = request.form.get("username").lower()
+                flash(["Welcome, {}!".format(request.form.get("username"))])
+                return redirect(url_for("home_page"))
             else:
                 # invalid password match
                 flash(["Invalid password"])
@@ -243,7 +243,7 @@ def add_movie():
             movie["created_by"] = session["user"]
             movie["time_added"] = datetime.now()
             mongo.db.movies.insert_one(movie)
-            flash(["Movie " + movie["movie_name"] + "is successfully added!"])
+            flash(["Movie " + movie["movie_name"] + " " + "is successfully added!"])
             return redirect(url_for("movie_page"))
         else:
             flash(error_msg)
@@ -272,7 +272,7 @@ def edit_movie(movie_id):
                 movie["created_by"] = session["user"]
                 movie["time_added"] = movie.time_added
                 mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit_movie)
-                flash(["Movie " + movie["movie_name"] + " is successfully updated"])
+                flash(["Movie " + movie["movie_name"] + " " + " is successfully updated"])
                 return redirect(url_for("single_movie_page", movie_id=movie_id))
             else:
                 flash(error_msg)
@@ -320,7 +320,7 @@ def add_category():
             new_category = request.form.get("category_name").capitalize()
             for category in categories:
                 if category["category_name"] == new_category:
-                    flash("The category already exists")
+                    flash(["The category already exists"])
                     return redirect(url_for("add_category"))
             category_dict = {
                 "category_name": request.form.get("category_name").capitalize()
@@ -394,7 +394,7 @@ def validate_username_and_return_error_msg(username):
 
 
 def validate_email_and_return_error_msg(email):
-    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-zA-Z]{2,4}$" 
     valid_email = re.search(email_regexp, email)
     if not valid_email:
         return False, "Not valid email \n"
