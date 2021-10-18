@@ -7,8 +7,6 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-if os.path.exists("env.py"):
-    import env
 
 
 app = Flask(__name__)
@@ -61,7 +59,8 @@ def search():
     query = request.form.get("query")
     movies = list(mongo.db.movies.find({"$text": {"$search": query}}))
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("movies.html", movies=movies, categories=categories, search_str=query)
+    return render_template(
+        "movies.html", movies=movies, categories=categories, search_str=query)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -78,7 +77,7 @@ def sign_up():
         # check if username already exists in db
         existing_user = mongo.db.users.find_one({"username": username_input})
         if existing_user:
-            flash(["Username " + existing_user["username"] + " " + " already exists"])
+            flash(["Username " + existing_user["username"]+" already exists"])
             return redirect(url_for("sign_up"))
         has_error = False
         error_msg = []
@@ -89,17 +88,18 @@ def sign_up():
             error_msg.append("Username must be at least 3 characters long")
 
         # validate email
-        is_email_valid, email_error_message = validate_email_and_return_error_msg(email_input)
+        is_email_valid, email_error_msg = valid_email_error_msg(email_input)
         if not is_email_valid:
             has_error = True
-            error_msg.append(email_error_message)
+            error_msg.append(email_error_msg)
 
         # validate password
         password_regexp = "^[a-zA-Z0-9]{5,16}$"
         valid_password = re.search(password_regexp, password_input)
         if not valid_password:
             has_error = True
-            error_msg.append("Password must be between 5 and 16 characters and consist of letters and numbers")
+            error_msg.append("""Password must be between 5 and 16 characters
+                                and consist of letters and numbers""")
 
         # save new usere to db or throw error(s)
         if has_error:
@@ -134,13 +134,17 @@ def sign_in():
         if existing_user:
             # validate password
             password_regexp = "^[a-zA-Z0-9]{5,16}$"
-            valid_password = re.search(password_regexp, request.form.get("password"))
+            valid_password = re.search(
+                password_regexp, request.form.get("password"))
             if not valid_password:
-                flash(["Password must be between 5 and 16 characters and consist of letters and numbers"])
+                flash(
+                    ["""Password must be between 5 and 16 characters and
+                        consist of letters and numbers"""])
                 return redirect(url_for("sign_in"))
 
             # ensure hashed password matches user input
-            if check_password_hash(existing_user["password"], request.form.get("password")):
+            if check_password_hash(existing_user["password"],
+                                   request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 flash(["Welcome, {}!".format(request.form.get("username"))])
                 return redirect(url_for("home_page"))
@@ -162,8 +166,10 @@ def get_user_profile():
         return redirect(url_for("sign_in"))
     else:
         user_data = mongo.db.users.find_one({'username': session["user"]})
-        user_movies = list(mongo.db.movies.find({'created_by': session["user"]}))
-        return render_template("profile.html", user_data=user_data, user_movies=user_movies)
+        user_movies = list(
+            mongo.db.movies.find({'created_by': session["user"]}))
+        return render_template(
+            "profile.html", user_data=user_data, user_movies=user_movies)
 
 
 @app.route("/profile/update", methods=["POST"])
@@ -181,10 +187,10 @@ def update_profile():
     error_msg = []
 
     # validate username
-    is_username_valid, username_error_message = validate_username_and_return_error_msg(username_input)
-    if not is_username_valid:
+    is_user_valid, user_error_msg = valid_user_return_error_msg(username_input)
+    if not is_user_valid:
         has_error = True
-        error_msg.append(username_error_message)
+        error_msg.append(user_error_msg)
 
     # validate if username havent changed to admin username
     if not session["is_admin"] and username_input == ADMIN_USER_NAME:
@@ -192,10 +198,10 @@ def update_profile():
         error_msg.append("Please pick another username")
 
     # validate email
-    is_email_valid, email_error_message = validate_email_and_return_error_msg(email_input)
+    is_email_valid, email_error_msg = valid_email_error_msg(email_input)
     if not is_email_valid:
         has_error = True
-        error_msg.append(email_error_message)
+        error_msg.append(email_error_msg)
 
     if has_error:
         flash(error_msg)
@@ -243,7 +249,8 @@ def add_movie():
             movie["created_by"] = session["user"]
             movie["time_added"] = datetime.now()
             mongo.db.movies.insert_one(movie)
-            flash(["Movie " + movie["movie_name"] + " " + "is successfully added!"])
+            flash(
+                ["Movie " + movie["movie_name"] + " is successfully added!"])
             return redirect(url_for("movie_page"))
         else:
             flash(error_msg)
@@ -271,13 +278,17 @@ def edit_movie(movie_id):
             if movie_is_valid:
                 movie["created_by"] = session["user"]
                 movie["time_added"] = movie.time_added
-                mongo.db.movies.update({"_id": ObjectId(movie_id)}, submit_movie)
-                flash(["Movie " + movie["movie_name"] + " " + " is successfully updated"])
-                return redirect(url_for("single_movie_page", movie_id=movie_id))
+                mongo.db.movies.update(
+                    {"_id": ObjectId(movie_id)}, submit_movie)
+                flash(
+                    ["Movie "+movie["movie_name"]+" is successfully updated"])
+                return redirect(
+                    url_for("single_movie_page", movie_id=movie_id))
             else:
                 flash(error_msg)
         categories = mongo.db.categories.find().sort("category_name", 1)
-        return render_template("edit_movie.html", movie=movie, categories=categories)
+        return render_template(
+            "edit_movie.html", movie=movie, categories=categories)
     except:
         return redirect(url_for("home_page"))
 
@@ -365,7 +376,8 @@ def validate_movie(movie):
         error_msg.append("Year must be a number between 1990 and 2100")
 
     # validate duration
-    if not (movie["movie_duration"].isnumeric() and 0 < int(movie["movie_duration"])):
+    if not (movie["movie_duration"].isnumeric() and
+            int(movie["movie_duration"]) > 0):
         is_valid = False
         error_msg.append("Duration must be a positive number")
 
@@ -387,14 +399,14 @@ def validate_movie(movie):
     return is_valid, error_msg
 
 
-def validate_username_and_return_error_msg(username):
+def valid_user_return_error_msg(username):
     if len(username) < 3:
         return False, "Username must be at least 3 characters long \n"
     return True, ""
 
 
-def validate_email_and_return_error_msg(email):
-    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-zA-Z]{2,4}$" 
+def valid_email_error_msg(email):
+    email_regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-zA-Z]{2,4}$"
     valid_email = re.search(email_regexp, email)
     if not valid_email:
         return False, "Not valid email \n"
