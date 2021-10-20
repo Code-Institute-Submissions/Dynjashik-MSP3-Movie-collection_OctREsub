@@ -118,8 +118,7 @@ The font-family Tahoma, Verdana, sans-serif is used on the website because it 
 
 Existing Features
 
-* Each page has a responsive and fixed to the top navigation menu. Menu items become active on currelty opened pages.
-  There is a logo in the center of navigation bar and a logged in username on the rigth.
+* Each page has a responsive and fixed to the top navigation menu. Menu items become active on currenlty opened pages. There is a logo in the center of navigation bar and a logged in username on the right.
 * Home page has:
 	* Background image with a website title.
 	* Welcome message.
@@ -128,7 +127,7 @@ Existing Features
 	* List of all movie cards with images. Cards are clickable and all movie details can be revealed.
 	* Search box where movies can be searched by category or title with freetext
 	* Filter movies by category.
-* Separate page for eacg movie with full information.
+* Separate page for each movie with full information.
 * Pages with sign in and sign up forms.
 
 Signed in users have access to:
@@ -203,6 +202,33 @@ Some of the code was taken from the sources:
 
 ## Testing
 
+| Story / Feature                                                                                                                                                                                               | Action                                                                                                                                                                                                                                                                                                                              | Result |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| Navigate through the website easily and clearly.                                                                                                                                                              | The site uses clear distinctive colors, user-friendly navigation menu on top of every page. All the menu entries have descriptive names and reflect the purpose of pages that they open.                                                                                                                                            | PASSED |
+| Have an opportunity to view movies without registering an account.                                                                                                                                            | Clicked on "Movies" menu item. Got on page with all movies without logging in.                                                                                                                                                                                                                                                      | PASSED |
+| Get detailed information about each movie.                                                                                                                                                                    | Clicked on movie image, got a sliding information window with movie details. Clicked on "Open" icon of a random movie. A new page opened with movie details.                                                                                                                                                                        | PASSED |
+| Register and login to the website.                                                                                                                                                                            | Clicked on "Sign In/Sign Up" menu item. Then clicked on "Sign Up" link. Entered username, email and password. Got a confirmation popup that registration was successful. After got redirected to Sign in page. Entered my username and password and clicked "Sign in". After that got redirected to Home page with welcome message. | PASSED |
+| Edit personal information when logged in.                                                                                                                                                                     | Clicked on "Profile" menu item while logged in. Personal information page opened. Changed my email and clicked "Update". Got a popup message with a message that my personal information is updated successfully. Opened Home page, then Profile page again and verified that the email changed.                                    | PASSED |
+| Add my own movies to the collection.                                                                                                                                                                          | Clicked "Add movie" menu item while logged in. Filled in all the required fields, clicked "Add movie". Got redirected to Movies page and confirmation popup message showed. Found it in the movie grid.                                                                                                                             | PASSED |
+| Edit movies added by me.                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                     |        |
+| Delete movies added by me.                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                     |        |
+| Have an overview only of movies added by me.                                                                                                                                                                  | Clicked on "Profile" menu item while logged in. Personal information page opened. Found My Movies section below with all movies added by me.                                                                                                                                                                                        | PASSED |
+| Filter movies by different categories.                                                                                                                                                                        | Clicked "Movies" menu item. Movies page opened and it has a list of clickable category buttons. Clicked "Comedy" category button. Only movies with Comedy category got shown.                                                                                                                                                       | PASSED |
+| Search movies by name.                                                                                                                                                                                        | On Movies page there is a search on top center. Wrote "jungle" in input field and clicked search button. Only "The Jungle Book" movie appeared on the page. Wrote "documentary" in input field and clicked search button. Only movies with category Documentary got shown.                                                          | PASSED |
+| Admin                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                     |        |
+| Edit any movie in the collection.                                                                                                                                                                             | Logged in as admin. Opened Movies page and opened detail page of a random movie. Clicked "Edit" button below movie image. Changed year, category and name. Clicked "Submit". Got redirected to movie details page and confirmation popup message is shown. Verified that name, year and category changed correctly.                 | PASSED |
+| Delete any movie in the collection.                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                                     |        |
+| Add movie categories.                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                     |        |
+| Delete movie categories.                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                     |        |
+| Have access to add affiliate links to each movie left by users, and earn money from those links.                                                                                                              |                                                                                                                                                                                                                                                                                                                                     |        |
+| Each page has a responsive and fixed to the top navigation menu.  Menu items become active on currenlty opened pages.  There is a logo in the center of navigation bar and a logged in username on the right. |                                                                                                                                                                                                                                                                                                                                     |        |
+|                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                     |        |
+|                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                     |        |
+|                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                     |        |
+|                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                     |        |
+|                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                     |        |
+|                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                     |        |
+
 The following steps were taken to ensure the website works as intended:
 * Ensure that all user stories are achieved:
 	* Navigation through the website is easy and clear.
@@ -272,22 +298,66 @@ The site was tested across different browsers and screen sized to validate respo
 
 ## Deployment
 
-Steps for deploying the website to a hosting platform using Heroku:
+### Prerequisits & general steps
 
-1. Set up requirements.txt file by typing in the terminal; pip3 freeze –local > requirements.txt to tell Heroku which applications and dependencies are required to run our app.
-2. Set up a Procfile file by typing: echo web: python app.py > Procfile. Access the Procfile and delete the bottom empty line.
-3. Open Heroku.com and log in on a dashboard where select “Create a New App”. Create an App name “my-milestone-project3”, choose the closest region Europe and click “Create App”.
-4. Head over to the “Deploy” tab and choose the “Deployment method” GitHub, adding the repository name MSP3-Movie-collection. Then click “search” and “Connect” to the repository name.
-5. Go to the “Settings” tab, and scroll down to “Config Vars”. Click “Reveal config vars” and fill in the Key and Value pairs, copied from env.py file: 
-          * IP : 0.0.0.0 
-          * PORT : 5000 
-          * SECRET_KEY : YOUR_SECRET_KEY 
-          * MONGO_URI : “mongo db [link](mongodb+srv://DaBel:Be1User@cluster0.zi7ip.mongodb.net/myProject3?retryWrites=true&w=majority)” 
-          * MONGO_DBNAME : “database name(myProject3)” 
-6. Back within the terminal, add requirements.txt and Proclife files, do git commit and push them to GitHub.
-7. Head back to the “Deploy” tab in Heroku, scroll down to “Automatic deploys”, click on “Enable Automatic Deploys” then “Deploy Branch”.
-8. During a minute it should be message "Your app was successfully deployed." Click "View" to launch the new app.
-Click on “Open App” which will launch the deployed app.
+First follow these steps first before starting either local or remote deployment of the app.
+
+* Create an acoount on [Gitpod](https://gitpod.io/). We will use it for both local and remote installations.
+* Create an account om [Heroku](https://heroku.com/) for remote installation.
+* Fork [this repository](https://github.com/Dynjashik/MSP3-Movie-collection) to your Github account.
+* Open the forked repository using Gitpod like so: https://gitpod.io#<your_repository_url>
+
+For testing purposes you can use my database, here are the configuration variables:
+```
+MONGO_DBNAME: myProject3
+MONGO_URI: mongodb+srv://DaBel:Be1User@cluster0.zi7ip.mongodb.net/myProject3?retryWrites=true&w=majority
+SECRET_KEY: <generated_key>
+```
+
+You can generate the key [here](https://miniwebtool.com/django-secret-key-generator/).
+
+### Heroku
+
+Steps for deploying the website to Heroku hosting platform:
+
+* Login to Heroku, open Heroku Dashboard and Click _New -> Create new app_
+* Enter appropriate app name and select the region closest to you.
+* Open _Deploy_ tab and select Github as _Deployment method_. Connect your forked repository using the options below.
+* Go to the _Settings_ tab, click _Reveal Config Vars_ in _Config Vars_ section.
+* Add the following configuration variables:
+```
+IP : 0.0.0.0 
+PORT : 5000
+MONGO_DBNAME: <your_db_name>
+SECRET_KEY:  <yout_db_secret_key>
+MONGO_URI: <your_db_uri>
+```
+* Head back to the _Deploy_ tab in Heroku. Scroll down to _Automatic deploys_, click on _Enable Automatic Deploys_ and _Deploy Branch_.
+* In _Manual deploy_ section click _Deploy Brach_.
+* Go to _Activity_ tab to keep track when the app will be deoployed.
+* After the app is deployed click _Open App_ to open the website.
+
+### Gitpod
+* In Gitpod create _env.py_ file in the root directory with the following content:
+```
+import os
+
+os.environ.setdefault("IP", "0.0.0.0")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "<yout_db_secret_key>")
+os.environ.setdefault("MONGO_URI", "<your_db_uri>")
+os.environ.setdefault("MONGO_DBNAME", "<your_db_name>")
+```
+
+* Install project dependencies by running the following command in terminal:
+```
+pip install -r requirements.txt
+```
+* Start the app by typing following command:
+```
+python app.py
+```
+* Click _Open Browser_ in pop up message at bottom right corner.
 
 ## Bugs
 
