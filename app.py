@@ -7,7 +7,8 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-
+if os.path.exists("env.py"):
+    import env
 
 app = Flask(__name__)
 
@@ -276,8 +277,8 @@ def edit_movie(movie_id):
             }
             movie_is_valid, error_msg = validate_movie(submit_movie)
             if movie_is_valid:
-                movie["created_by"] = session["user"]
-                movie["time_added"] = movie.time_added
+                submit_movie["created_by"] = movie["created_by"]
+                submit_movie["time_added"] = movie["time_added"]
                 mongo.db.movies.update(
                     {"_id": ObjectId(movie_id)}, submit_movie)
                 flash(
