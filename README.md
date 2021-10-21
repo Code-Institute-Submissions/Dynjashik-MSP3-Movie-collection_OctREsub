@@ -259,6 +259,7 @@ Admin
 <hr />
 
 ##### Edit movie
+![img](static/images/README_files/edit-movie.png)
 <hr />
 
 ##### Delete movie
@@ -284,36 +285,47 @@ Admin
 #### Mobile
 
 ##### Navigation bar
+![img](static/images/README_files/mobile-nav-bar.png)
 <hr />
 
 ##### Home
+![img](static/images/README_files/mobile-home.png)
 <hr />
 
 ##### Movies
+![img](static/images/README_files/mobile-movies.png)
 <hr />
 
 ##### Movie details
+![img](static/images/README_files/mobile-page.png)
 <hr />
 
 ##### Add movie
+![img](static/images/README_files/mobile-add-movie.png)
 <hr />
 
 ##### Edit movie
+![img](static/images/README_files/mobile-edit-movie.png)
 <hr />
 
 ##### Delete movie
+![img](static/images/README_files/mobile-delete-movie.png)
 <hr />
 
 ##### Profile
+![img](static/images/README_files/mobile-profile.png)
 <hr />
 
 ##### Sign in
+![img](static/images/README_files/mobile-sign-in.png)
 <hr />
 
 ##### Sign up
+![img](static/images/README_files/mobile-sign-up.png)
 <hr />
 
 ##### Manage Categories
+![img](static/images/README_files/mobile-categories.png)
 <hr />
 
 
