@@ -297,7 +297,7 @@ Admin
 <hr />
 
 ##### Movie details
-![img](static/images/README_files/mobile-page.png)
+![img](static/images/README_files/mobile-movie-page.png)
 <hr />
 
 ##### Add movie
