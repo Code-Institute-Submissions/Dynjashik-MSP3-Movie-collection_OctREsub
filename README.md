@@ -2,7 +2,7 @@
 
 Movie collection is a website with movies based on books where people can find movies by books of different genres. That gives the opportunity to compare movie and book story. Movies have a link to watch them or link to buy a book for reading. Users also can share their favourite movies and books.
 
-![mockup](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Mockup.png)
+![mockup](static/images/README_files/Mockup.png)
 
 Live Website: [here.](https://my-milestone-project3.herokuapp.com/)
 
@@ -89,7 +89,7 @@ The website has:
 
 ### Skeleton
 
-Mockup of the website was created in ["Balsamiq Wireframes"](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/MS%20Project%203.pdf).
+Mockup of the website was created in ["Balsamiq Wireframes"](static/images/README_files/MS%20Project%203.pdf).
 
 ### Surface
 
@@ -112,7 +112,7 @@ The font-family Tahoma, Verdana, sans-serif is used on the website because it 
 
 [MongoDB](https://account.mongodb.com/account/login?n=%2Fv2%2F60ba880b16ccf0213a133e12%23metrics%2FreplicaSet%2F60e4469c9fc1390a86c8e35e%2Fexplorer%2FmyProject3%2Fusers%2Ffind) was used for this project and schema design was created. 
 
-![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/MongoDB%20diagram.png)
+![img](static/images/README_files/MongoDB%20diagram.png)
 
 ## Features
 
@@ -129,29 +129,31 @@ Existing Features
 	* Filter movies by category.
 * Separate page for each movie with full information.
 * Pages with sign in and sign up forms.
+* All flash messages coming from Flask open in pop up window.
+* Confirmation modals before deleting any information or updating user personal information.
+* The password field uses Werkzeug to hash the password on entry and confirm password is validated using Javascript. 
+* On mobile devices navigation bar menu transforms into a hamburger vertical menu.
 
 Signed in users have access to:
+
 * Profile page with user’s information and user’s added movies. There is opportunity to update information and manage movies (edit, delete) on separate movie pages.
 * Add movie form with input fields: movie name, category name, year, duration, description, movie link, book link, movie image link.
 * Edit movie page to update movie information.
 * Log out button
+
 Admin user have access to:
+
 * Manage categories page to add or delete movie categories.
 * Manage all movies on the website to edit or delete them.
 
-* All flash messages coming from Flask open in pop up window.
-* Confirmation modals before deleting any information or updating user personal information.
-* The password field uses Werkzeug to hash the password on entry and confirm password is validated using Javascript. 
-
 ### Features left to implement
+
 * Footer with contact information so it is possible to contact developer
 * Forgot password functionality
 * Share movies in social networks
 * Leave review to the movie
 * Rate/Like movie
 
-On mobile devices navigation bar menu transforms into a hamburger vertical menu.
-Otherwise all other pages are the same.
 
 ## Technologies
 
@@ -202,6 +204,9 @@ Some of the code was taken from the sources:
 
 ## Testing
 
+Testing of all features was done manually. There is a table with features and actions taken to test them below.
+
+
 | Story / Feature                                                                                                                                                                                               | Action                                                                                                                                                                                                                                                                                                                              | Result |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | Navigate through the website easily and clearly.                                                                                                                                                              | The site uses clear distinctive colors, user-friendly navigation menu on top of every page. All the menu entries have descriptive names and reflect the purpose of pages that they open.                                                                                                                                            | PASSED |
@@ -215,57 +220,101 @@ Some of the code was taken from the sources:
 | Have an overview only of movies added by me.                                                                                                                                                                  | Clicked on "Profile" menu item while logged in. Personal information page opened. Found My Movies section below with all movies added by me.                                                                                                                                                                                        | PASSED |
 | Filter movies by different categories.                                                                                                                                                                        | Clicked "Movies" menu item. Movies page opened and it has a list of clickable category buttons. Clicked "Comedy" category button. Only movies with Comedy category got shown.                                                                                                                                                       | PASSED |
 | Search movies by name.                                                                                                                                                                                        | On Movies page there is a search on top center. Wrote "jungle" in input field and clicked search button. Only "The Jungle Book" movie appeared on the page. Wrote "documentary" in input field and clicked search button. Only movies with category Documentary got shown.                                                          | PASSED |
-| Admin                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                     |        |
-| Edit any movie in the collection.                                                                                                                                                                             | Logged in as admin. Opened Movies page and opened detail page of a random movie. Clicked "Edit" button below movie image. Changed year, category and name. Clicked "Submit". Got redirected to movie details page and confirmation popup message is shown. Verified that name, year and category changed correctly.                 | PASSED |
-| Delete any movie in the collection.                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                                     |        |
-| Add movie categories.                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                     |        |
-| Delete movie categories.                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                     |        |
-| Have access to add affiliate links to each movie left by users, and earn money from those links.                                                                                                              |                                                                                                                                                                                                                                                                                                                                     |        |
-| Each page has a responsive and fixed to the top navigation menu.  Menu items become active on currenlty opened pages.  There is a logo in the center of navigation bar and a logged in username on the right. |                                                                                                                                                                                                                                                                                                                              
+| Each page has a responsive and fixed to the top navigation menu. Menu items become active on currently opened pages. There is a logo in the center of navigation bar and a logged in username on the right. | Tried to use website on screens with different sizes. Navigation menu is responsive and is always on top when I scroll pages. Menu items change color (become active) when I click on them. After logging in I can see my username in the top right corner. | PASSED |
+| Clickable movie cards with movie image that reveal detailed movie information.                                                                                                                              | On movies list page clicked on random movie image. Movie details appeared on top of clicked movie card. Closed it by clicking on cross icon on top right corner of the movie card.                                                                          | PASSED |
 
-The following steps were taken to ensure the website works as intended:
-* Ensure that all user stories are achieved:
-	* Navigation through the website is easy and clear.
-	* There is opportunity for all users to view the movie collection before logging in.
-	* There is search bar in movie collection page where user can search with freetext for a movie by its name or category.
-	* There is a category filter in movie collection.
-	* Clickable movie cards with movie image that reveal detailed movie information.
-	* There is a button to sign in and sign up in the menu.
-	* There is button to add favourite movies in the menu.
-	* The website has Profile page with ability to edit user’s information and view all movies added by the user.
-	* Users can log out of the site securely.
 
-	* User Admin has easy access to all areas of the website.
-	* User Admin can edit or delete any movie.
-	* User Admin can add or delete movie categories.
+Admin
 
-* Ensure that all features work well: 
-	* Each page has a responsive and fixed to the top navigation menu. Menu items become active on currenlty opened pages. There is a logo in the center of navigation bar.
-	* Navigation menu has Home, Movies and SignIn/SignUp buttons for not signed up users. Profile, Add Movie, Log Out for signed ip users. Additional button ”Manage categories” is for Admin user. There is a user’s name in the right corner of Menu.
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Menu.png)
-	* Home Page is a main page and has a background image with a website title, welcome text and three recently added movies.
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Home_page.png)
-	* Movies page has a list of all movie collection, search box of movies by category, by title, movie filter by category. 
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Movies_page.png)
-	* Movies cards have a user’s or default image with title, details button. Clicking on card movie information with book link opens.
-	  Clicking on details button a seprate movie page is opened with possibility to edit and delete it if the user logged in.
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Movie_card.png)
-	* Clicking on SignIn/SignUp button SignIn form opens. If user hasn’t signed up there is a SignUp button that redirects to SignUp form. After signing in user is redirected to Home page.
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/SignUp.png)
-	* Profile page has signed in user’s information and user’s added movies with opportunity to update personal information and manage movies(edit, delete).
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Profile.png)
-	* Add movie page has a form with input fields: movie name, category name, year, duration, description, movie link, book link, movie image link and submit button. 
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Add_movie.png)
-	* On a separate movie page after there are "edit" and "delete" buttons if user created that movie. After clicking "edit" button, Edit Movie page opens with pre filled input fields. There are also ”submit” and ”back” buttons. "Back" button redirects to movie page without any changes.
-	* Admin user has access to manage categories clicking on ”Manage Categoties” button in Menu. Also admin can manage (edit & delete) any movie on the website
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/manage%20categories.png)
-	* After any actions on the website such as signing in and signing up, add, edit and delete movie, update personal information, log out etc flash messages open in pop up windows with informative text or confirming question.
-	* There are confirmatino modals before deleting any information.
-	![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/modal.png)
-	* The password field uses Werkzeug to hash the password on entry and double confirm	password is validated using Javascript.
+| Story/Feature                                                                                    | Action                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Result |
+|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| Edit any movie in the collection.                                                                | Logged in as admin. Opened Movies page and opened detail page of a random movie. Clicked "Edit" button below movie image.  Changed year, category and name. Clicked "Submit". Got redirected to movie details page and confirmation popup message is shown.  Verified that name, year and category changed correctly.                                                                                                                                         | PASSED |
+| Delete any movie in the collection.                                                              | Logged in as admin. Opened Movies page and opened detail page of a random movie. Clicked "Delete" button. Pressed "Yes" in confirmation pop up window. Got redirected to movie list page with a confirmation message that the movie was deleted successfully. Verified that it does not exist in the movie list.                                                                                                                                              | PASSED |
+| Add movie categories.                                                                            | While logged in as admin clicked "Manage Categories" menu item. In an opened page clicked "Add Category" button. Typed name "Series" and clicked "Add" button. Got redirected to categories page with a confirmation popup window. Verified that created category is on categories page. Also opened movie list page and verified that created category  is in the list of buttons for filtering.                                                             | PASSED |
+| Delete movie categories.                                                                         | While logged in as admin clicked "Manage Categories" menu item. In an opened page clicked delete icon for a random category. Typed name "Series" and clicked "Add" button. Clicked "Yes" in confirmation popup window. Got a confirmation popup window that the category was deleted. Verified that deleted category is not on categories page. Also opened movie list page and verified that created category  is not in the list of buttons for filtering.  | PASSED |
+| Have access to add affiliate links to each movie left by users, and earn money from those links. | While logged in as admin found a movie that was added by other user. On movie detail page clicked "Edit", added an affiliate link to Book Store URL field. Clicked "Submit". Got redirected to movie detail page with a confirmation popup window. Verified that the link was updated by clicking on "Book link".                                                                                                                                             | PASSED |
 
- * Ensure that all features work well on mobile version too:
-     *All features on mobile version are the same.
+### Testing screenshots
+
+#### Desktop
+
+##### Navigation bar
+![img](static/images/README_files/Menu.png)
+<hr />
+
+##### Home
+![img](static/images/README_files/Home_page.png)
+<hr />
+
+##### Movies
+![img](static/images/README_files/Movies_page.png)
+<hr />
+
+##### Movie details
+![img](static/images/README_files/Movie_card.png)
+<hr />
+
+##### Add movie
+![img](static/images/README_files/Add_movie.png)
+<hr />
+
+##### Edit movie
+<hr />
+
+##### Delete movie
+![img](static/images/README_files/delete-movie.png)
+<hr />
+
+##### Profile
+![img](static/images/README_files/Profile.png)
+<hr />
+
+##### Sign in
+![img](static/images/README_files/SignIn.png)
+<hr />
+
+##### Sign up
+![img](static/images/README_files/SignUp.png)
+<hr />
+
+##### Manage Categories
+![img](static/images/README_files/manage%20categories.png)
+<hr />
+
+#### Mobile
+
+##### Navigation bar
+<hr />
+
+##### Home
+<hr />
+
+##### Movies
+<hr />
+
+##### Movie details
+<hr />
+
+##### Add movie
+<hr />
+
+##### Edit movie
+<hr />
+
+##### Delete movie
+<hr />
+
+##### Profile
+<hr />
+
+##### Sign in
+<hr />
+
+##### Sign up
+<hr />
+
+##### Manage Categories
+<hr />
 
 
 The following online validators have been used for checking the code for any errors or warnings:
@@ -278,14 +327,14 @@ There are no warnings or errors.
 There is 1 error and warnings connected to external libraries (MaterializeCSS, Awesome, hover.css) that I cannot access.
 
 * [JShint](https://jshint.com/) looks good:  
-![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Jshint.png)
+![img](static/images/README_files/Jshint.png)
 
 Lighthouse testing was made in Chrome browser developer tools. 
 * Desktop Lighthouse Improved Report:  
-![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Lighthouse_desktop.png)
+![img](static/images/README_files/Lighthouse_desktop.png)
 
 * Mobile Lighthouse Report:  
-![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/Lighthouse_mobile.png)
+![img](static/images/README_files/Lighthouse_mobile.png)
 After testing the website with Mobile Lighthouse it was made improvement in CSS style to load CSS asynchronously.
 
 The site was tested across different browsers and screen sized to validate responsiveness and browser compatibility.: Chrome, Internet Explorer, Safari, Firefox, UC Browser, Opera and Samsung Internet. It was also tested on mobile devices such as: iPhone Xs, iPhone 7, iPhone 11, Xiaomi Redmi Note 9. 
@@ -356,7 +405,7 @@ python app.py
 ## Bugs
 
 During testing the project several bugs were fixed. Clicking on "Edit" button on Movie page the page was opening without logo of the website. To fix it I changed the path to logo image:"../../static/images/logo-icon.png".
-![img](https://github.com/Dynjashik/MSP3-Movie-collection/blob/master/static/images/README%20file/bug.png)
+![img](static/images/README_files/bug.png)
 
 Next bug was deleting random movie with a modal because of all delete modals had one id for all movies. It was fixed by adding unique id for each delete modal.
 
