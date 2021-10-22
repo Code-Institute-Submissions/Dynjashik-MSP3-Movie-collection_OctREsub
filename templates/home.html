@@ -24,7 +24,7 @@
             <li class="card-sizing card card-background center-align">
                 <div class="card-image-with-button">
                     <div class="card-image card-image-grid waves-effect waves-block waves-light">
-                        <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src= &#34; {{ url_for('static', filename='images/movie_icon.jpg') }} &#34; ;" alt="movie_image" />
+                        <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
                     </div>
                     <a class="btn-floating halfway-fab waves-effect waves-light cyan darken-1" href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i class="material-icons">open_in_new</i></a>
                 </div>

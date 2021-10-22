@@ -6,7 +6,7 @@
     <div class="single-movie-container">
         <div class="card-sizing card">
             <div class="card-image">
-                <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src= &#34; {{ url_for('static', filename='images/movie_icon.jpg') }} &#34; ;" alt="movie_image" />
+                <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
             </div>
             {% if session.user|lower == movie.created_by|lower or session.is_admin %}
             <div class="card-action">
