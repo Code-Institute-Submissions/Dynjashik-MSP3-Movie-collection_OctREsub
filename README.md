@@ -163,10 +163,10 @@ Admin user have access to:
 
 ### Languages used:
 
-HTML5 - for basic content and structure of the site. 
-CSS3 - for design. 
-Javascript - logic for the game. 
-Python - for writing the scripts to render all the different templates using flask and connecting to mongodb. 
+HTML5 - for basic content and structure of the site.  
+CSS3 - for design.  
+Javascript - logic for the game.  
+Python - for writing the scripts to render all the different templates using flask and connecting to mongodb.  
 
 ### Frameworks and libraries used:
 
