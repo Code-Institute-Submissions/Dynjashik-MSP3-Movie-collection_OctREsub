@@ -6,19 +6,22 @@
     <div class="single-movie-container">
         <div class="card-sizing card">
             <div class="card-image">
-                <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
+                <img class="activator" src="{{ movie.movie_image }}"
+                    onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
             </div>
             {% if session.user|lower == movie.created_by|lower or session.is_admin %}
             <div class="card-action">
                 <div class="col s12 center-align">
-                    <a href="{{url_for('edit_movie', movie_id=movie._id)}}" class="btn cyan lighten-1 black-text">Edit</a>
+                    <a href="{{url_for('edit_movie', movie_id=movie._id)}}"
+                        class="btn cyan lighten-1 black-text">Edit</a>
                     <a class="btn modal-trigger red lighten-1 black-text" href="#modal{{movie._id}}">Delete</a>
                     <div id="modal{{movie._id}}" class="modal">
                         <div class="modal-content">
                             <h5>Are you sure want to delete this movie?</h5>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{ url_for('delete_movie', movie_id=movie._id) }}" class="modal-close btn red lighten-1 black-text">Yes</a>
+                            <a href="{{ url_for('delete_movie', movie_id=movie._id) }}"
+                                class="modal-close btn red lighten-1 black-text">Yes</a>
                             <a class="modal-close btn cyan lighten-1 black-text">No</a>
                         </div>
                     </div>
@@ -33,12 +36,14 @@
             <p><i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
             <p>
                 <i class="fas fa-book prefix cyan-text lighten-1"></i>
-                <a href="{{ movie.book_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Book link</a>
+                <a href="{{ movie.book_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Book
+                    link</a>
             </p>
             {% if movie.movie_link %}
             <p class="card-reveal-info">
                 <i class="fas fa-film prefix cyan-text lighten-1"></i>
-                <a href="{{ movie.movie_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Movie link</a>
+                <a href="{{ movie.movie_link }} " class="collection-item" target="_blank"
+                    rel="noopener noreferrer">Movie link</a>
             </p>
             {% endif %}
             <p>{{ movie.movie_description }}</p>

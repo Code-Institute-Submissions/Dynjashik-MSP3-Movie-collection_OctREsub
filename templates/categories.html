@@ -16,13 +16,15 @@
                     <span class="card-title">{{ category.category_name }}</span>
                 </div>
                 <div class="card-action category-action">
-                    <a class="btn-delete modal-trigger btn-floating waves-effect waves-light red lighten-1" href="#modal{{category._id}}"><i class="material-icons">delete</i></a>
+                    <a class="btn-delete modal-trigger btn-floating waves-effect waves-light red lighten-1"
+                        href="#modal{{category._id}}"><i class="material-icons">delete</i></a>
                     <div id="modal{{category._id}}" class="modal">
                         <div class="modal-content">
                             <h5>Are you sure want to delete this category?</h5>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{ url_for('delete_category', category_id=category._id) }}" class="modal-close btn red lighten-1 black-text">Yes</a>
+                            <a href="{{ url_for('delete_category', category_id=category._id) }}"
+                                class="modal-close btn red lighten-1 black-text">Yes</a>
                             <a class="modal-close btn cyan lighten-1 black-text">No</a>
                         </div>
                     </div>

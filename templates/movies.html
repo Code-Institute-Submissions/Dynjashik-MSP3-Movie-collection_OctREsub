@@ -6,31 +6,33 @@
     <form class="search-input" action="{{ url_for('search') }}" method="POST">
         <input type="search" placeholder="Enter movie name or category" name="query" id="query" />
         <div class="search-btns">
-            <button type="submit" aria-label="Search movies" class="waves-effect waves-light btn cyan lighten-1 black-text"><i class="fas fa-search"></i></button>
+            <button type="submit" aria-label="Search movies"
+                class="waves-effect waves-light btn cyan lighten-1 black-text"><i class="fas fa-search"></i></button>
         </div>
     </form>
 
     <div class="category-menu center-align">
         <!--Categories Menu -->
-        {% if request.path == url_for('movie_page') %} 
-            {% set category_class = "waves-effect waves-light btn cyan accent-1 black-text btn-margin" %} 
-        {% else %} 
-            {% set category_class = "waves-effect waves-light btn cyan lighten-1 black-text btn-margin" %} 
+        {% if request.path == url_for('movie_page') %}
+        {% set category_class = "waves-effect waves-light btn cyan accent-1 black-text btn-margin" %}
+        {% else %}
+        {% set category_class = "waves-effect waves-light btn cyan lighten-1 black-text btn-margin" %}
         {% endif %}
         <a class="{{ category_class }}" href="{{ url_for('movie_page') }}">All movies</a>
 
-        {% for category in categories %} 
-            {% if request.path == url_for('movie_page_filtered', category=category.category_name) %} 
-                {% set category_class = "waves-effect waves-light btn cyan accent-1 black-text btn-margin" %} 
-            {% else %} 
-                {% set category_class = "waves-effect waves-light btn cyan lighten-1 black-text btn-margin" %} 
-            {% endif %}
-            <a class="{{ category_class }}" href="{{url_for('movie_page_filtered', category=category.category_name)}}">{{ category.category_name }}</a>
+        {% for category in categories %}
+        {% if request.path == url_for('movie_page_filtered', category=category.category_name) %}
+        {% set category_class = "waves-effect waves-light btn cyan accent-1 black-text btn-margin" %}
+        {% else %}
+        {% set category_class = "waves-effect waves-light btn cyan lighten-1 black-text btn-margin" %}
+        {% endif %}
+        <a class="{{ category_class }}"
+            href="{{url_for('movie_page_filtered', category=category.category_name)}}">{{ category.category_name }}</a>
         {% endfor %}
     </div>
     {% if request.path == url_for('search') %}
-        <p class="center-align">Showing results for <i>{{search_str}}</i></p>
-    {% endif %} 
+    <p class="center-align">Showing results for <i>{{search_str}}</i></p>
+    {% endif %}
     {% if movies|length > 0 %}
     <!--Movie cards-->
     <div class="row">
@@ -39,9 +41,12 @@
             <li class="card-sizing card card-background center-align">
                 <div class="card-image-with-button">
                     <div class="card-image card-image-grid waves-effect waves-block waves-light">
-                        <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
+                        <img class="activator" src="{{ movie.movie_image }}"
+                            onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
                     </div>
-                    <a class="btn-floating halfway-fab waves-effect waves-light cyan darken-1" href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i class="material-icons">open_in_new</i></a>
+                    <a class="btn-floating halfway-fab waves-effect waves-light cyan darken-1"
+                        href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i
+                            class="material-icons">open_in_new</i></a>
                 </div>
                 <div class="card-content card-name">
                     <span class="card-title title-bottom activator">{{ movie.movie_name }}</span>
@@ -49,17 +54,22 @@
                 <div class="card-reveal card-text">
                     <div class="card-title">
                         <i class="material-icons right">close</i> <strong>{{ movie.movie_name }}</strong> <br /><br />
-                        <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i> {{ movie.category_name }}</p>
-                        <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i> {{ movie.year }}</p>
-                        <p class="card-reveal-info"><i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
+                        <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i>
+                            {{ movie.category_name }}</p>
+                        <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i>
+                            {{ movie.year }}</p>
+                        <p class="card-reveal-info"><i class="fas fa-clock prefix cyan-text lighten-1"></i>
+                            {{ movie.movie_duration }} min</p>
                         <p class="card-reveal-info">
                             <i class="fas fa-book prefix cyan-text lighten-1"></i>
-                            <a href="{{ movie.book_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Book link</a>
+                            <a href="{{ movie.book_link }} " class="collection-item" target="_blank"
+                                rel="noopener noreferrer">Book link</a>
                         </p>
                         {% if movie.movie_link %}
                         <p class="card-reveal-info">
                             <i class="fas fa-film prefix cyan-text lighten-1"></i>
-                            <a href="{{ movie.movie_link }} " class="collection-item" target="_blank" rel="noopener noreferrer">Movie link</a>
+                            <a href="{{ movie.movie_link }} " class="collection-item" target="_blank"
+                                rel="noopener noreferrer">Movie link</a>
                         </p>
                         {% endif %}
                         <p class="card-reveal-description">{{ movie.movie_description }}</p>

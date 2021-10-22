@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
-                    <input id="username" name="username" type="text" minlength="3" {% if session['is_admin'] %} disabled {% endif %} 
-                        value="{{ user_data.username }}" class="validate" required>
+                    <input id="username" name="username" type="text" minlength="3" {% if session['is_admin'] %} disabled
+                        {% endif %} value="{{ user_data.username }}" class="validate" required>
                     <label for="username">Username</label>
                 </div>
             </div>
@@ -18,13 +18,15 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
-                    <input id="email" name="email" value="{{ user_data.email }}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="validate" required />
+                    <input id="email" name="email" value="{{ user_data.email }}" type="email"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="validate" required />
                     <label for="email">Email</label>
                 </div>
             </div>
             <!-- update button -->
             <div class="row center-align">
-                <button class="modal-trigger waves-effect waves-light btn cyan lighten-1 black-text" data-target="modal-user-update">Update</button>
+                <button class="modal-trigger waves-effect waves-light btn cyan lighten-1 black-text"
+                    data-target="modal-user-update">Update</button>
                 <div id="modal-user-update" class="modal">
                     <div class="modal-content">
                         <h5>Are you sure want to update your personal information?</h5>
@@ -47,22 +49,30 @@
             <li class="card-sizing card card-background center-align">
                 <div class="card-image-with-button">
                     <div class="card-image card-image-grid waves-effect waves-block waves-light">
-                        <img class="activator" src="{{ movie.movie_image }}" onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
+                        <img class="activator" src="{{ movie.movie_image }}"
+                            onerror="this.onerror=null;this.src='/static/images/movie_icon.jpg';" alt="movie_image" />
                     </div>
-                    <a class="btn-floating halfway-fab waves-effect waves-light cyan darken-1" href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i class="material-icons">open_in_new</i></a>
+                    <a class="btn-floating halfway-fab waves-effect waves-light cyan darken-1"
+                        href="{{url_for('single_movie_page', movie_id=movie._id)}}"><i
+                            class="material-icons">open_in_new</i></a>
                 </div>
                 <div class="card-content card-name">
                     <span class="card-title title-bottom activator">{{ movie.movie_name }}</span>
                 </div>
                 <div class="card-reveal card-text">
                     <div class="card-title">
-                        <i class="material-icons right">close</i> <strong><a href="{{ movie.movie_link }}" target="_blank" rel="noopener noreferrer">{{ movie.movie_name }}</a></strong> <br />
+                        <i class="material-icons right">close</i> <strong><a href="{{ movie.movie_link }}"
+                                target="_blank" rel="noopener noreferrer">{{ movie.movie_name }}</a></strong> <br />
                         <br />
-                        <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i> {{ movie.category_name }}</p>
-                        <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i> {{ movie.year }}</p>
-                        <p class="card-reveal-info"><i class="fas fa-clock prefix cyan-text lighten-1"></i> {{ movie.movie_duration }} min</p>
-                        <p class="card-reveal-info"><i class="fas fa-book prefix cyan-text lighten-1"></i> 
-                                                    <a href="{{ movie.book_link }} " class="collection-item" rel="noopener noreferrer">Book link</a></p>
+                        <p class="card-reveal-info"><i class="fas fa-theater-masks prefix cyan-text lighten-1"></i>
+                            {{ movie.category_name }}</p>
+                        <p class="card-reveal-info"><i class="fas fa-calendar-alt prefix cyan-text lighten-1"></i>
+                            {{ movie.year }}</p>
+                        <p class="card-reveal-info"><i class="fas fa-clock prefix cyan-text lighten-1"></i>
+                            {{ movie.movie_duration }} min</p>
+                        <p class="card-reveal-info"><i class="fas fa-book prefix cyan-text lighten-1"></i>
+                            <a href="{{ movie.book_link }} " class="collection-item" rel="noopener noreferrer">Book
+                                link</a></p>
                         <p class="card-reveal-description">{{ movie.movie_description }}</p>
                         <p class="card-reveal-info"><em>added by: {{ movie.created_by }}</em></p>
                     </div>

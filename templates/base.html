@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
     {% endblock %}
     <title>Movie collection</title>
 </head>
+
 <body>
 
     <header>
@@ -21,23 +23,31 @@
             <nav class="nav-extended nav-background text-shadow">
                 <div class="nav-wrapper">
                     <ul class=" left hide-on-med-and-down">
-                        <li {% if request.path == url_for('home_page') %}class="active"{% endif %}><a href="{{ url_for('home_page') }}">Home</a></li>
-                        <li {% if request.path == url_for('movie_page') %}class="active"{% endif %}><a href="{{ url_for('movie_page') }}">Movies</a></li>
+                        <li {% if request.path == url_for('home_page') %}class="active" {% endif %}><a
+                                href="{{ url_for('home_page') }}">Home</a></li>
+                        <li {% if request.path == url_for('movie_page') %}class="active" {% endif %}><a
+                                href="{{ url_for('movie_page') }}">Movies</a></li>
                         {% if session.user_logged_in %}
-                        <li {% if request.path == url_for('add_movie') %}class="active"{% endif %}><a href="{{ url_for('add_movie') }}">Add movie</a></li>
-                        <li {% if request.path == url_for('get_user_profile') %}class="active"{% endif %}><a href="{{ url_for('get_user_profile') }}">Profile</a></li>
+                        <li {% if request.path == url_for('add_movie') %}class="active" {% endif %}><a
+                                href="{{ url_for('add_movie') }}">Add movie</a></li>
+                        <li {% if request.path == url_for('get_user_profile') %}class="active" {% endif %}><a
+                                href="{{ url_for('get_user_profile') }}">Profile</a></li>
                         {% if session.is_admin %}
-                        <li {% if request.path == url_for('get_categories') %}class="active"{% endif %}><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+                        <li {% if request.path == url_for('get_categories') %}class="active" {% endif %}><a
+                                href="{{ url_for('get_categories') }}">Manage Categories</a></li>
                         {% endif %}
-                        <li {% if request.path == url_for('log_out') %}class="active"{% endif %}><a href="{{ url_for('log_out') }}">Log out</a></li>
+                        <li {% if request.path == url_for('log_out') %}class="active" {% endif %}><a
+                                href="{{ url_for('log_out') }}">Log out</a></li>
                         {% else %}
-                        <li {% if request.path == url_for('sign_in') %}class="active"{% endif %}><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
+                        <li {% if request.path == url_for('sign_in') %}class="active" {% endif %}><a
+                                href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
                         {% endif %}
                     </ul>
                     <a href="{{ url_for('home_page') }}" class="center brand-logo">
                         <img src="../../static/images/logo-icon.png" alt="Website logo">
                     </a>
-                    <a href="#" data-target="mobile-demo" id="main-menu-mobile" class="sidenav-trigger right"><i class="fas fa-bars black-text"></i></a>
+                    <a href="#" data-target="mobile-demo" id="main-menu-mobile" class="sidenav-trigger right"><i
+                            class="fas fa-bars black-text"></i></a>
                     {% if session.user_logged_in %}
                     <div class="username">{{session.user}}</div>
                     {% endif %}
@@ -46,49 +56,55 @@
         </div>
         <!-- mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><h4 class="title-margin text-darken 4">Movies by books</h4></li>
-            <li><div class="username-mobile">{{session.user}}</div></li>
+            <li>
+                <h4 class="title-margin text-darken 4">Movies by books</h4>
+            </li>
+            <li>
+                <div class="username-mobile">{{session.user}}</div>
+            </li>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
             <li><a href="{{ url_for('movie_page') }}">Movies</a></li>
-        {% if session.user_logged_in %}
+            {% if session.user_logged_in %}
             <li><a href="{{ url_for('add_movie') }}">Add movie</a></li>
             <li><a href="{{ url_for('get_user_profile') }}">Profile</a></li>
             {% if session.is_admin %}
-                <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+            <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
             {% endif %}
             <li><a href="{{ url_for('log_out') }}">Log out</a></li>
-        {% else %}
+            {% else %}
             <li><a href="{{ url_for('sign_in') }}">Sign In/Sign Up</a></li>
-        {% endif %}
-          </ul>
-          
-	</header>
+            {% endif %}
+        </ul>
+
+    </header>
 
     <!-- flash messages -->
     {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message_list in messages %}
-                <div id="modal" class="modal flash-modal">
-                    <div class="modal-content flash-modal-content">
-                        {% for message in message_list %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
-                    </div>
-                    <div class="modal-footer flash-modal-button">
-                        <a class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
-                    </div>
-                </div>
+    {% if messages %}
+    {% for message_list in messages %}
+    <div id="modal" class="modal flash-modal">
+        <div class="modal-content flash-modal-content">
+            {% for message in message_list %}
+            <p>{{ message }}</p>
             {% endfor %}
-        {% endif %}
+        </div>
+        <div class="modal-footer flash-modal-button">
+            <a class="modal-action modal-close waves-effect btn cyan lighten-1">OK</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
 
     {% block content %}
     {% endblock %}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {% block scripts %}
     {% endblock %}
 </body>
+
 </html>
