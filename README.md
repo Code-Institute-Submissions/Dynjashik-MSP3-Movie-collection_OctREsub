@@ -375,15 +375,6 @@ It was also tested on mobile devices such as
 
 ## Deployment
 
-### Prerequisits & general steps
-
-First follow these steps first before starting either local or remote deployment of the app.
-
-* Create an acoount on [Gitpod](https://gitpod.io/). We will use it for both local and remote installations.
-* Create an account om [Heroku](https://heroku.com/) for remote installation.
-* Fork [this repository](https://github.com/Dynjashik/MSP3-Movie-collection) to your Github account.
-* Open the forked repository using Gitpod like so: https://gitpod.io#<your_repository_url>
-
 For testing purposes you can use my database, here are the configuration variables:
 ```
 MONGO_DBNAME: myProject3
@@ -397,6 +388,8 @@ You can generate the key [here](https://miniwebtool.com/django-secret-key-genera
 
 Steps for deploying the website to Heroku hosting platform:
 
+* Fork [this repository](https://github.com/Dynjashik/MSP3-Movie-collection) to your Github account
+* Create an account on [Heroku](https://heroku.com/) for remote installation.
 * Login to Heroku, open Heroku Dashboard and Click _New -> Create new app_
 * Enter appropriate app name and select the region closest to you.
 * Open _Deploy_ tab and select Github as _Deployment method_. Connect your forked repository using the options below.
@@ -415,6 +408,10 @@ MONGO_URI: <your_db_uri>
 * After the app is deployed click _Open App_ to open the website.
 
 ### Gitpod
+
+* Fork [this repository](https://github.com/Dynjashik/MSP3-Movie-collection) to your Github account
+* Create an acoount on [Gitpod](https://gitpod.io/)
+* Open the forked repository using Gitpod like so: https://gitpod.io#<your_repository_url>
 * In Gitpod create _env.py_ file in the root directory with the following content:
 ```
 import os
