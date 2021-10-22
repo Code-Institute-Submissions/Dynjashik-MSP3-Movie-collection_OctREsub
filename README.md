@@ -230,8 +230,8 @@ Admin
 |--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | Edit any movie in the collection.                                                                | Logged in as admin. Opened Movies page and opened detail page of a random movie. Clicked "Edit" button below movie image.  Changed year, category and name. Clicked "Submit". Got redirected to movie details page and confirmation popup message is shown.  Verified that name, year and category changed correctly.                                                                                                                                         | PASSED |
 | Delete any movie in the collection.                                                              | Logged in as admin. Opened Movies page and opened detail page of a random movie. Clicked "Delete" button. Pressed "Yes" in confirmation pop up window. Got redirected to movie list page with a confirmation message that the movie was deleted successfully. Verified that it does not exist in the movie list.                                                                                                                                              | PASSED |
-| Add movie categories.                                                                            | While logged in as admin clicked "Manage Categories" menu item. In an opened page clicked "Add Category" button. Typed name "Series" and clicked "Add" button. Got redirected to categories page with a confirmation popup window. Verified that created category is on categories page. Also opened movie list page and verified that created category  is in the list of buttons for filtering.                                                             | PASSED |
-| Delete movie categories.                                                                         | While logged in as admin clicked "Manage Categories" menu item. In an opened page clicked delete icon for a random category. Typed name "Series" and clicked "Add" button. Clicked "Yes" in confirmation popup window. Got a confirmation popup window that the category was deleted. Verified that deleted category is not on categories page. Also opened movie list page and verified that created category  is not in the list of buttons for filtering.  | PASSED |
+| Add movie categories.                                                                            | While logged in as admin clicked "Manage Categories" menu item. In an opened page clicked "Add Category" button. Typed name "Series" and clicked "Add" button. Got redirected to categories page with a confirmation popup window. Verified that created category is on categories page. Also opened movie list page and verified that created category is in the list of buttons for filtering.                                                             | PASSED |
+| Delete movie categories.                                                                         | While logged in as admin clicked "Manage Categories" menu item. In an opened page clicked delete icon for a random category. Clicked "Yes" in confirmation popup window. Got a confirmation popup window that the category was deleted. Verified that deleted category is not on categories page. Also opened movie list page and verified that created category is not in the list of buttons for filtering.  | PASSED |
 | Have access to add affiliate links to each movie left by users, and earn money from those links. | While logged in as admin found a movie that was added by other user. On movie detail page clicked "Edit", added an affiliate link to Book Store URL field. Clicked "Submit". Got redirected to movie detail page with a confirmation popup window. Verified that the link was updated by clicking on "Book link".                                                                                                                                             | PASSED |
 
 ### Testing screenshots
@@ -328,8 +328,10 @@ Admin
 ![img](static/images/README_files/mobile-categories.png)
 <hr />
 
+### Validators
 
 The following online validators have been used for checking the code for any errors or warnings:
+
 * [W3C HTML Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmy-milestone-project3.herokuapp.com%2Fhome); 
  
 There are no warnings or errors.
@@ -339,17 +341,37 @@ There are no warnings or errors.
 There is 1 error and warnings connected to external libraries (MaterializeCSS, Awesome, hover.css) that I cannot access.
 
 * [JShint](https://jshint.com/) looks good:  
+
 ![img](static/images/README_files/Jshint.png)
+<hr />
 
 Lighthouse testing was made in Chrome browser developer tools. 
-* Desktop Lighthouse Improved Report:  
+* Desktop Lighthouse Report:
+
 ![img](static/images/README_files/Lighthouse_desktop.png)
+<hr />
 
 * Mobile Lighthouse Report:  
+
 ![img](static/images/README_files/Lighthouse_mobile.png)
+<hr />
+
 After testing the website with Mobile Lighthouse it was made improvement in CSS style to load CSS asynchronously.
 
-The site was tested across different browsers and screen sized to validate responsiveness and browser compatibility.: Chrome, Internet Explorer, Safari, Firefox, UC Browser, Opera and Samsung Internet. It was also tested on mobile devices such as: iPhone Xs, iPhone 7, iPhone 11, Xiaomi Redmi Note 9. 
+The site was tested across different browsers and screen sized to validate responsiveness and browser compatibility.
+Browsers:
+* Chrome
+* Microsoft Edge
+* Safari
+* Firefox
+* Opera.
+
+It was also tested on mobile devices such as
+* iPhone Xs
+* iPhone 7
+* iPhone 11
+* Xiaomi Redmi Note 9
+ 
 
 ## Deployment
 
