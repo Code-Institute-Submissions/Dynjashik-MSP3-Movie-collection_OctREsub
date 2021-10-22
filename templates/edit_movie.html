@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-film prefix"></i>
-                    <input id="movie_link" name="movie_link" value="{{ movie.movie_link }}" type="text" class="validate" required />
+                    <input id="movie_link" name="movie_link" value="{{ movie.movie_link }}" type="url" class="validate" required />
                     <label for="movie_link">Movie URL</label>
                 </div>
             </div>
@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-book prefix"></i>
-                    <input id="book_link" name="book_link" type="text" value="{{ movie.book_link }}" class="validate" required />
+                    <input id="book_link" name="book_link" type="url" value="{{ movie.book_link }}" class="validate" required />
                     <label for="book_link">Book store URL</label>
                 </div>
             </div>
@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-image prefix"></i>
-                    <input id="movie_image" name="movie_image" value="{{ movie.movie_image }}" type="text" class="validate" />
+                    <input id="movie_image" name="movie_image" value="{{ movie.movie_image }}" type="url" class="validate" />
                     <label for="movie_image">Movie Image URL (optional)</label>
                 </div>
             </div>

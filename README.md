@@ -172,7 +172,7 @@ Python - for writing the scripts to render all the different templates using fla
 
 [MaterializeCSS](https://materializecss.com/about.html)- for creating the responsive structure of the website, layout and design.  
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) - a python web framework.   
-[PyMongo](https://pymongo.readthedocs.io/en/stable/) - python tool for use with Mongo DB. 
+[PyMongo](https://pymongo.readthedocs.io/en/stable/) - python tool for use with Mongo DB.   
 [JQuery](https://jquery.com/) - for making the site interactive.   
 [Font Awesome](https://fontawesome.com/) - for using icons.  
 [Google Fonts](https://fonts.google.com/) -  for font of the website.  
@@ -189,8 +189,8 @@ Python - for writing the scripts to render all the different templates using fla
 [Mockup generator](http://techsini.com/multi-mockup/index.php) - for testing responsive website on various devices.  
 [W3 Schools](https://www.w3schools.com/) - for HTML, CSS, JS, Python tips.  
 [Stackoverflow](stackoverflow.com) - for finding answers on questions.  
-[Webformatter](https://webformatter.com) - for beautifying HTML, CSS, Javascript codes. 
-[Datetime](https://docs.python.org/3/library/datetime.html#module-datetime) - for manipulating dates and times. 
+[Webformatter](https://webformatter.com) - for beautifying HTML, CSS, Javascript codes.   
+[Datetime](https://docs.python.org/3/library/datetime.html#module-datetime) - for manipulating dates and times.   
 [Regular expression](https://docs.python.org/3/library/re.html)- matching operations similar to those found in Perl. 
 
 ### Codes used:
@@ -382,7 +382,7 @@ MONGO_URI: mongodb+srv://DaBel:Be1User@cluster0.zi7ip.mongodb.net/myProject3?ret
 SECRET_KEY: <generated_key>
 ```
 
-You can generate the key [here](https://miniwebtool.com/django-secret-key-generator/).
+You can generate the key [here](https://randomkeygen.com/).
 
 ### Heroku
 
@@ -440,7 +440,7 @@ During testing the project several bugs were fixed. Clicking on "Edit" button on
 
 Next bug was deleting random movie with a modal because of all delete modals had one id for all movies. It was fixed by adding unique id for each delete modal.
 
-Other bug was on the Profile page with "Update" button. It didn't matter what it was chosen in confirming question, YES or NO, the information was updated in any case. The problem was solved by changing NO option from html tag <button> to <a> and href - on data-target with help of stackoverflow.com.
+Other bug was on the Profile page with "Update" button. It didn't matter what it was chosen in confirming question, YES or NO, the information was updated in any case. The problem was solved by changing NO option from html tag "button" to "a" and href - on data-target with help of stackoverflow.com.
 
 Next fixed bug was discovered with mentor when user updated any movie information, field "created by" became empty. Proplem was in code in file app.py. We should overwrite field "created_by" in db in app.route edit movie.
 
