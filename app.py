@@ -8,7 +8,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
-    import env
+    import env  # noqa: F401
 
 app = Flask(__name__)
 
@@ -290,7 +290,7 @@ def edit_movie(movie_id):
         categories = mongo.db.categories.find().sort("category_name", 1)
         return render_template(
             "edit_movie.html", movie=movie, categories=categories)
-    except:
+    except Exception:
         return redirect(url_for("home_page"))
 
 
@@ -299,7 +299,7 @@ def single_movie_page(movie_id):
     try:
         movie = mongo.db.movies.find_one({"_id": ObjectId(movie_id)})
         return render_template("movie.html", movie=movie)
-    except:
+    except Exception:
         return redirect(url_for("home_page"))
 
 
@@ -309,7 +309,7 @@ def delete_movie(movie_id):
         mongo.db.movies.remove({"_id": ObjectId(movie_id)})
         flash(["Movie is successfully deleted"])
         return redirect(url_for("movie_page"))
-    except:
+    except Exception:
         return redirect(url_for("home_page"))
 
 
@@ -352,7 +352,7 @@ def delete_category(category_id):
     try:
         mongo.db.categories.remove({"_id": ObjectId(category_id)})
         flash(["Category is successfully deleted"])
-    except:
+    except Exception:
         return redirect(url_for("get_categories"))
 
     return redirect(url_for("get_categories"))

@@ -345,6 +345,14 @@ There is 1 error and warnings connected to external libraries (MaterializeCSS, A
 ![img](static/images/README_files/Jshint.png)
 <hr />
 
+* [Flake8](https://flake8.pycqa.org/en/latest/) libary was used to reformat Python and follow PEP8 coding standards. You can run it with a follwing command in the terminal in the root directory of the project:
+
+```
+python -m flake8
+```
+
+
+
 Lighthouse testing was made in Chrome browser developer tools. 
 * Desktop Lighthouse Report:
 
